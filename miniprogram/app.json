@@ -1,0 +1,35 @@
+{
+  "pages": [
+    "pages/user/user",
+    "pages/home/home",
+    "pages/discover/discover"
+
+    
+
+  ],
+  "tabBar": {
+    "list": [
+      {
+       "pagePath": "pages/home/home",
+       "text": "首页"
+      },
+      {
+        "pagePath": "pages/discover/discover",
+        "text": "发布"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的"
+      }
+    ]
+  },
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "Sharing",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

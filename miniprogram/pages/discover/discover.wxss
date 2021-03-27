@@ -1,0 +1,13 @@
+/* pages/discover/discover.wxss */
+#pic_upload{
+  height: 80px;
+  width: 80px;
+}
+#descripiton{
+  height:200rpx;
+  background-color: white;
+  position: relative;
+}
+.unit{
+  padding-top: 12px;
+}

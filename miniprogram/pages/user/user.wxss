@@ -1,0 +1,30 @@
+/* pages/user/user.wxss */
+#head{
+  align-items: center;
+  background-color: beige;
+  height: 100px;
+}
+#user_icon{
+  margin: 0 auto;  
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  width: 161rpx;
+  height: 161rpx;
+  border-radius: 50%;
+}
+#user_name{
+  display: flex;
+  justify-content: center;
+  font-size: smaller;
+}
+#UserChoice{
+  font-size: 14px;
+  margin-top: 20px;
+}
+.option{
+  padding-top: 10px;
+  font-size: 15px;
+  background-color: white;
+  height: 30px;
+}

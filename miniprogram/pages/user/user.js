@@ -5,15 +5,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    tip:''
   },
+  
   test:function()
   {
     const db=wx.cloud.database();
     var app=getApp();
-    db.collection('users').where({_openid:db.command.eq(app.globalData.openid)}).update({
+    db.collection('users').where({_openid:db.command.eq('on_ai4t9jBrabqoJLLdKxmsgsaMw')}).update({
       data:{
-         description_lst:db.command.push("reatciton")
+         description_lst:db.command.push("newtest")
        }
      })
   },
@@ -21,7 +22,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+   
+    //getApp().watch_db();
   },
 
   /**

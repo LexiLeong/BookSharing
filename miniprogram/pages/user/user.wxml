@@ -12,3 +12,4 @@
   </view>
 </view>
 <button bindtap="test">借书</button>
+<label value="{{tip}}"></label>

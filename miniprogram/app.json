@@ -1,25 +1,28 @@
 {
   "pages": [
-    "pages/user/user",
     "pages/home/home",
-    "pages/discover/discover"
-
-    
-
+    "pages/discover/discover",
+    "pages/user/user"
   ],
   "tabBar": {
     "list": [
       {
        "pagePath": "pages/home/home",
-       "text": "首页"
+       "text": "首页",
+       "iconPath": "images/home.png",
+       "selectedIconPath": "images/_home.png"
       },
       {
         "pagePath": "pages/discover/discover",
-        "text": "发布"
+        "text": "发布",
+        "iconPath": "images/discover.png",
+        "selectedIconPath": "images/_discover.png"
       },
       {
         "pagePath": "pages/user/user",
-        "text": "我的"
+        "text": "我的",
+        "iconPath": "images/user.png",
+        "selectedIconPath": "images/_user.png"
       }
     ]
   },

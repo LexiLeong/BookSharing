@@ -8,6 +8,7 @@ Page({
     author:'',
     description:'',
   },
+
   //确定发布后的数据库更新操作
   release:function()
   {
@@ -103,13 +104,7 @@ Page({
       description: e.detail.value
     })
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
+ 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

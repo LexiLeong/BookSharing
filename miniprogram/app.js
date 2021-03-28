@@ -12,11 +12,22 @@ App({
         traceUser: true,
       })
     }
-    this.globalData = {}
-    console.log("show");
     this.getOpenid();
-    
-  },
+    const db = wx.cloud.database();
+      var app=getApp();
+      db.collection('users').where({
+        _openid:db.command.eq(app.globalData.openid)
+      }).watch({
+        onChange: function (snapshot) {
+          //监控数据发生变化时触发
+          console.log("database change interaction");
+        },
+        onError:(err) => {
+          console.error(err)
+        }
+      })
+  } ,
+   
   getOpenid() {
     let that = this;
     wx.cloud.callFunction({
@@ -26,10 +37,9 @@ App({
       const app=getApp();
       app.globalData.openid = res.result.openId;
       
-     /* that.setData({
-       openid: openid
-      })*/
      }
+       // 生命周期函数--监听页面加载
+  
 })
   }
 })

@@ -11,4 +11,4 @@
     <span>全部已借入书目</span>
   </view>
 </view>
-
+<button bindtap="test">借书</button>

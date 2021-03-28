@@ -7,7 +7,16 @@ Page({
   data: {
 
   },
-
+  test:function()
+  {
+    const db=wx.cloud.database();
+    var app=getApp();
+    db.collection('users').where({_openid:db.command.eq(app.globalData.openid)}).update({
+      data:{
+         description_lst:db.command.push("reatciton")
+       }
+     })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

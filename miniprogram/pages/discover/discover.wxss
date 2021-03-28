@@ -2,12 +2,18 @@
 #pic_upload{
   height: 80px;
   width: 80px;
+
 }
 #descripiton{
   height:200rpx;
   background-color: white;
   position: relative;
+  margin-top: 8px;
 }
 .unit{
   padding-top: 12px;
+}
+#bookname,#author{
+  background-color: white;
+  height: 30px;
 }

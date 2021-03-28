@@ -5,7 +5,7 @@
 </view>
 <view class="unit">
 <text>作者</text>
-<input class="author" bindinput="getAuthor" value='{{author}}'></input>
+<input id="author" bindinput="getAuthor" value='{{author}}'></input>
 </view>
 <view class="unit">
 <text>图片上传</text>

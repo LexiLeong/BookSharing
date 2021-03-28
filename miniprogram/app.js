@@ -12,22 +12,10 @@ App({
         traceUser: true,
       })
     }
+    this.globalData = {}
     this.getOpenid();
-    const db = wx.cloud.database();
-      var app=getApp();
-      db.collection('users').where({
-        _openid:db.command.eq(app.globalData.openid)
-      }).watch({
-        onChange: function (snapshot) {
-          //监控数据发生变化时触发
-          console.log("database change interaction");
-        },
-        onError:(err) => {
-          console.error(err)
-        }
-      })
+    
   } ,
-   
   getOpenid() {
     let that = this;
     wx.cloud.callFunction({

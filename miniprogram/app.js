@@ -2,7 +2,8 @@
 App({
   globalData:{//全局变量
     openid:"",
-    lendnum:0
+    lendnum:0,
+    init:-1 //判断是否初始启动
   },
     onLaunch: function () {
 
@@ -37,6 +38,10 @@ App({
     const db=wx.cloud.database();
     db.collection('users').where({_openid:db.command.eq(this.globalData.openid)}).watch({
       onChange: snapshot=> {
+        if (this.globalData.init==-1){
+          this.globalData.init=0;
+          return ;
+        }
         console.log('lendsuccess', snapshot.docChanges)
           this.globalData.lendnum++;
           var index=this.globalData.lendnum.toFixed(0);

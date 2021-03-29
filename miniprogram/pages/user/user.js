@@ -12,6 +12,8 @@ Page({
   {
     const db=wx.cloud.database();
     var app=getApp();
+    //要更改为借书对象的id
+    //要更改对应书目索引的列表
     db.collection('users').where({_openid:db.command.eq('on_ai4t9jBrabqoJLLdKxmsgsaMw')}).update({
       data:{
          description_lst:db.command.push("newtest")

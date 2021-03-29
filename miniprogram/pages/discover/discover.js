@@ -12,7 +12,7 @@ Page({
   //确定发布后的数据库更新操作
   release:function()
   {
-    const _picid=this.data.img_id;
+    let _picid=this.data.img_id;
     //若实则未上传照片
     if(this.data.flag_pic==0)
     {
@@ -35,7 +35,8 @@ Page({
               lend_name_lst:[],
               lend_author_lst:[],
               lend_pic_lst:[],
-              description_lst:[]
+              description_lst:[],
+              is_lend:[]//未被借阅赋值0，被借阅赋值-1
             }
           })
         }
@@ -45,7 +46,8 @@ Page({
               lend_name_lst:_.push(this.data.bookname),
               lend_author_lst:_.push(this.data.author),
               lend_pic_lst:_.push(_picid),
-              description_lst:_.push(this.data.description)
+              description_lst:_.push(this.data.description),
+              is_lend:_.push(0)
             }
           })
         }
@@ -82,7 +84,7 @@ Page({
           imgURL:res.fileID
         })
         this.data.img_id=res.fileID;
-        this.data.flag_pic=1;
+        this.data.flag_pic=1;//有上传照片
       },
       fail: err => {
         // handle error

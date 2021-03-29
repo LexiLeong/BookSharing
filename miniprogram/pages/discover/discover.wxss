@@ -1,4 +1,9 @@
 /* pages/discover/discover.wxss */
+#upload{
+  background-color:rgb(241, 241, 241);
+  height:100px;
+  width:100px;
+}
 #pic_upload{
   height: 80px;
   width: 80px;

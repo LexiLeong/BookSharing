@@ -11,5 +11,5 @@
     <span>全部已借入书目</span>
   </view>
 </view>
-<button bindtap="test">借书</button>
+<button bindtap="test" type="primary" id="but">借书</button>
 <label value="{{tip}}"></label>

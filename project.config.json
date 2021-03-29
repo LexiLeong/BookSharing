@@ -38,7 +38,7 @@
     "minifyWXSS": true
   },
   "appid": "wxeac6ba8b8e2ad0d3",
-  "projectname": "miniprogram-5",
+  "projectname": "BookSharing",
   "libVersion": "2.14.1",
   "condition": {
     "search": {

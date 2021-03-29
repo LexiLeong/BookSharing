@@ -22,6 +22,9 @@
   font-size: 14px;
   margin-top: 20px;
 }
+#but{
+  margin-top:10px;
+}
 .option{
   padding-top: 10px;
   font-size: 15px;

@@ -21,35 +21,45 @@ Page({
     const app=getApp();
     const openid=app.globalData.openid;
     const db=wx.cloud.database();
-    db.collection('users').where({_openid:db.command.eq(app.globalData.openid)}).get(
+    db.collection('releaseInfo').where({_openid:db.command.eq(app.globalData.openid)}).get(
       {
         success: res => {
           console.log(res.data);
           console.log(res.data.length);
           const _=db.command;
-          //当当前用户初次发布
+          //当当前用户初次发布,建立结构
           if(res.data.length==0){
           console.log("no exist");
-          db.collection('users').add({
+          db.collection('releaseInfo').add({
             data:{
-              lend_name_lst:[],
-              lend_author_lst:[],
-              lend_pic_lst:[],
-              description_lst:[],
-              is_lend:[]//未被借阅赋值0，被借阅赋值-1
+              detail:[]
             }
           })
+          db.collection('lendInfo').add({
+            data:{
+              detail:[]
+             }
+           })
         }
+        var bookname=this.data.bookname;
+        var author=this.data.author;
+        var picid=_picid;
+        var description=this.data.description;
         //当前用户非初次发布
-          db.collection('users').where({_openid:db.command.eq(app.globalData.openid)}).update({
+          db.collection('releaseInfo').where({_openid:db.command.eq(app.globalData.openid)}).update({
            data:{
-              lend_name_lst:_.push(this.data.bookname),
-              lend_author_lst:_.push(this.data.author),
-              lend_pic_lst:_.push(_picid),
-              description_lst:_.push(this.data.description),
-              is_lend:_.push(0)
+              detail:db.command.push({bookname,author,picid,description})
             }
           })
+          var bookname=this.data.bookname;
+          var lendnum=0;
+          var lenderId=[];
+          var msg=[];
+          db.collection('lendInfo').where({_openid:db.command.eq('on_ai4t9jBrabqoJLLdKxmsgsaMw')}).update({
+            data:{
+               detail:db.command.push({bookname,lendnum,lenderInfo:{lenderId,msg}})
+             }
+           })
         }
   })
   this.data.path_img='';

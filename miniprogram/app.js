@@ -36,7 +36,7 @@ App({
   async watch_db(){
     var a= await this.getOpenid();
     const db=wx.cloud.database();
-    db.collection('users').where({_openid:db.command.eq(this.globalData.openid)}).watch({
+    db.collection('releaseInfo').where({_openid:db.command.eq(this.globalData.openid)}).watch({
       onChange: snapshot=> {
         if (this.globalData.init==-1){
           this.globalData.init=0;

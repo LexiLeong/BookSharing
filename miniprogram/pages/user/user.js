@@ -15,12 +15,13 @@ Page({
     //要更改为借书对象的id
     //要更改对应书目索引的列表
     var text="i want to borrow"
-    var bk_index=2;
+    var bk_index=4;//书所储存的编号
+    //被借人的id
     db.collection('lendInfo').where({_openid:db.command.eq('on_ai4t9jBrabqoJLLdKxmsgsaMw')}).update({
       data:{
-        'detail.4.lendnum': db.command.inc(1),
-        'detail.4.lenderInfo.lenderId':db.command.push(getApp().globalData.openid),
-        'detail.4.lenderInfo.msg':db.command.push(text)
+        ['detail.'+bk_index+'.lendnum']: db.command.inc(1),
+        ['detail.'+bk_index+'.lenderInfo.lenderId']:db.command.push(getApp().globalData.openid),
+        ['detail.'+bk_index+'.lenderInfo.msg']:db.command.push(text)
        }
      })
   },

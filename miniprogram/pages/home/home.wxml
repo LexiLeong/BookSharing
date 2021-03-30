@@ -1,2 +1,6 @@
 <!--pages/home/home.wxml-->
 
+<view class="searchInput">
+  <!-- 搜索框 -->
+  <searchInput></searchInput>
+</view>

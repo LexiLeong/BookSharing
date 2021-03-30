@@ -8,7 +8,6 @@ Page({
     author:'',
     description:'',
   },
-
   //确定发布后的数据库更新操作
   release:function()
   {
@@ -18,8 +17,6 @@ Page({
     {
       _picid='';
     }
-    const app=getApp();
-    const openid=app.globalData.openid;
     const db=wx.cloud.database();
     db.collection('releaseInfo').where({_openid:db.command.eq(app.globalData.openid)}).get(
       {
@@ -28,11 +25,12 @@ Page({
           //当当前用户初次发布,建立结构
           if(res.data.length==0){
           console.log("no exist");
+          //发布信息数据库的更新
           db.collection('releaseInfo').add({
             data:{
-              
             }
           })
+          //借阅信息数据库的更新
           db.collection('lendInfo').add({
             data:{
 

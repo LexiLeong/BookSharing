@@ -57,12 +57,6 @@ App({
         {
           return;
         }
-        /*
-          if(typeof snapshot.docChanges[0]['updatedFields']['detail.'+a]=='undefined') 
-          {
-            return ;
-          }
-        */
           this.globalData.unreadsum++;
           var index=this.globalData.unreadsum.toFixed(0);
           console.log(index);

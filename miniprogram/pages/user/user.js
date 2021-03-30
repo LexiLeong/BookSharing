@@ -1,18 +1,11 @@
 // pages/user/user.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     tip:''
   },
-  
   test:function()
   {
     const db=wx.cloud.database();
-    var app=getApp();
-    
     //要更改为借书对象的id
     //要更改对应书目索引的列表
     var msg="i want to borrow"//借家留下的信息

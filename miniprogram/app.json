@@ -2,7 +2,8 @@
   "pages": [
     "pages/home/home",
     "pages/discover/discover",
-    "pages/user/user"
+    "pages/user/user",
+    "pages/search/search"
   ],
   "tabBar": {
     "list": [

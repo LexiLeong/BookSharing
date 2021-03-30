@@ -5,7 +5,7 @@
 </view>
 <view id="UserChoice">
   <view class="option" id="lended" bindtap="show_lend">
-    <span>全部已借出书目</span>
+    <span>全部已发布书目</span>
   </view>
   <view class="option" id="borrowed" bindtap="show_borrow">
     <span>全部已借入书目</span>

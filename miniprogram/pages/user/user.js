@@ -12,18 +12,21 @@ Page({
   {
     const db=wx.cloud.database();
     var app=getApp();
+    
     //要更改为借书对象的id
     //要更改对应书目索引的列表
-    var text="i want to borrow"
-    var bk_index=4;//书所储存的编号
-    //被借人的id
+    var msg="i want to borrow"//借家留下的信息
+    var bookname='发布3';    //获取借入的书的名字
+    getApp().globalData.currbook=bookname;
+      //被借人的id
     db.collection('lendInfo').where({_openid:db.command.eq('on_ai4t9jBrabqoJLLdKxmsgsaMw')}).update({
       data:{
-        ['detail.'+bk_index+'.lendnum']: db.command.inc(1),
-        ['detail.'+bk_index+'.lenderInfo.lenderId']:db.command.push(getApp().globalData.openid),
-        ['detail.'+bk_index+'.lenderInfo.msg']:db.command.push(text)
-       }
-     })
+        [bookname]:{
+          lendnum:db.command.inc(1),//该书目的借阅数+1
+          lenderInfo:{
+            [getApp().globalData.openid]:msg//申请借阅人ID：留言
+       },
+     }}})
   },
   /**
    * 生命周期函数--监听页面加载

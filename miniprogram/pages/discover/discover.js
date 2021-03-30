@@ -24,40 +24,41 @@ Page({
     db.collection('releaseInfo').where({_openid:db.command.eq(app.globalData.openid)}).get(
       {
         success: res => {
-          console.log(res.data);
-          console.log(res.data.length);
           const _=db.command;
           //当当前用户初次发布,建立结构
           if(res.data.length==0){
           console.log("no exist");
           db.collection('releaseInfo').add({
             data:{
-              detail:[]
+              
             }
           })
           db.collection('lendInfo').add({
             data:{
-              detail:[]
+
              }
            })
         }
         var bookname=this.data.bookname;
-        var author=this.data.author;
-        var picid=_picid;
-        var description=this.data.description;
+        getApp().globalData.currbook=this.data.bookname;//更改当前操作的书名
         //当前用户非初次发布
           db.collection('releaseInfo').where({_openid:db.command.eq(app.globalData.openid)}).update({
            data:{
-              detail:db.command.push({bookname,author,picid,description})
+              [bookname]:{
+                author:this.data.author,
+                picid:_picid,
+                description:this.data.description
+              }
             }
           })
-          var bookname=this.data.bookname;
-          var lendnum=0;
-          var lenderId=[];
-          var msg=[];
-          db.collection('lendInfo').where({_openid:db.command.eq('on_ai4t9jBrabqoJLLdKxmsgsaMw')}).update({
+          //发布人当前用户的id
+          db.collection('lendInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).update({
             data:{
-               detail:db.command.push({bookname,lendnum,lenderInfo:{lenderId,msg}})
+               [bookname]:{
+                 lendnum:0,
+                 lenderInfo:{
+                 }
+               }
              }
            })
         }

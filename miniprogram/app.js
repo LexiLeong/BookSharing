@@ -2,8 +2,10 @@
 App({
   globalData:{//全局变量
     openid:"",
-    lendnum:0,
-    init:-1 //判断是否初始启动
+    releasesum:0,//发布的书的总数
+    unreadsum:0,//待读消息数
+    init:-1 ,//判断是否初始启动
+    currbook:''//目前操作的书名
   },
     onLaunch: function () {
 
@@ -38,13 +40,31 @@ App({
     const db=wx.cloud.database();
     db.collection('lendInfo').where({_openid:db.command.eq(this.globalData.openid)}).watch({
       onChange: snapshot=> {
-        if (this.globalData.init==-1){
+        //判断是否为程序初启动时的监听
+        if (this.globalData.init==-1 ){
           this.globalData.init=0;
           return ;
         }
-        console.log('lendsuccess', snapshot.docChanges)
-          this.globalData.lendnum++;
-          var index=this.globalData.lendnum.toFixed(0);
+        var a=this.globalData.releasesum.toString();
+        console.log(snapshot.docChanges[0]);
+        var test=this.globalData.currbook+'.lenderInfo.'+this.globalData.openid;
+        console.log(test);
+        if(snapshot.dataType=='add')
+        {
+          return ;
+        }
+        if(typeof snapshot.docChanges[0].updatedFields[[test]]=='undefined')
+        {
+          return;
+        }
+        /*
+          if(typeof snapshot.docChanges[0]['updatedFields']['detail.'+a]=='undefined') 
+          {
+            return ;
+          }
+        */
+          this.globalData.unreadsum++;
+          var index=this.globalData.unreadsum.toFixed(0);
           console.log(index);
           wx.setTabBarBadge({
             index:2,

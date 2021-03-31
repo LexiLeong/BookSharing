@@ -33,7 +33,6 @@ Page({
                   array: a,
                 })
           }})
-          console.log(a);
         }
           }
         }

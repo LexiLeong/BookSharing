@@ -3,7 +3,8 @@
     "pages/home/home",
     "pages/discover/discover",
     "pages/user/user",
-    "pages/search/search"
+    "pages/search/search",
+    "pages/msg/msg"
   ],
   "tabBar": {
     "list": [

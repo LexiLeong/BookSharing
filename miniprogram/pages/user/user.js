@@ -17,9 +17,17 @@ Page({
         [bookname]:{
           lendnum:db.command.inc(1),//该书目的借阅数+1
           lenderInfo:{
-            [getApp().globalData.openid]:msg//申请借阅人ID：留言
+            [getApp().globalData.openid]:{
+              msg:msg,//申请借阅人ID：留言
+              isread:-1//这个消息被借人读取否；否为-1，是为1
+              }
        },
      }}})
+  },
+  show_msg(){
+    wx.navigateTo({
+      url: "/pages/msg/msg"
+    })
   },
   /**
    * 生命周期函数--监听页面加载

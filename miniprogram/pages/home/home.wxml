@@ -4,3 +4,16 @@
   <!-- 搜索框 -->
   <searchInput></searchInput>
 </view>
+
+<view class="unit">
+  <button bindtap="getData" type="primary">最新发布</button>
+</view>
+
+<view wx:for="{{bookList}}">
+  <view>{{item.key}}</view>
+  <!-- <van-card num="2" 
+  desc="{{item.author}}" 
+  thumb="{{item.picid }}" />
+  {{index}}: {{item.author}}
+  作者：{{item.author}} -->
+</view>

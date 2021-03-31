@@ -18,6 +18,7 @@ Page({
       _picid='';
     }
     const db=wx.cloud.database();
+    const app=getApp();//不加报错 加了报别的错
     db.collection('releaseInfo').where({_openid:db.command.eq(app.globalData.openid)}).get(
       {
         success: res => {

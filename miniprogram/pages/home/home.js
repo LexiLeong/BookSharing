@@ -1,17 +1,43 @@
 // pages/home/home.js
+const db=wx.cloud.database()
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    bookList:[]
   },
+
+  getData(){
+    let getDataVar = this
+    db.collection('releaseInfo').where({})
+    .get({
+      success(res) { // res.data 是一个包含集合中有权限访问的所有记录的数据，不超过 20 条
+        console.log("success",res);
+        console.log("success",res.data[0].发布3);
+
+        getDataVar.setData({
+          bookList:res.data
+        })
+      },
+      fail(res){
+        console.log("fail",res)
+      }
+    })
+  },
+
+
+
+
 
   /**
    * 生命周期函数--监听页面加载
    */
+  //页面开始加载就会触发
   onLoad: function (options) {
+
   },
 
   /**

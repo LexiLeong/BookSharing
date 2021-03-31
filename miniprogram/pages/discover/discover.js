@@ -18,8 +18,7 @@ Page({
       _picid='';
     }
     const db=wx.cloud.database();
-    const app=getApp();//不加报错 加了报别的错
-    db.collection('releaseInfo').where({_openid:db.command.eq(app.globalData.openid)}).get(
+    db.collection('releaseInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).get(
       {
         success: res => {
           const _=db.command;
@@ -41,7 +40,7 @@ Page({
         var bookname=this.data.bookname;
         getApp().globalData.currbook=this.data.bookname;//更改当前操作的书名
         //当前用户非初次发布
-          db.collection('releaseInfo').where({_openid:db.command.eq(app.globalData.openid)}).update({
+          db.collection('releaseInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).update({
            data:{
               [bookname]:{
                 author:this.data.author,

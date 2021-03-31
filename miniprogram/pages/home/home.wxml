@@ -9,11 +9,20 @@
   <button bindtap="getData" type="primary">最新发布</button>
 </view>
 
-<view wx:for="{{bookList}}">
-  <view>{{item.key}}</view>
-  <!-- <van-card num="2" 
-  desc="{{item.author}}" 
-  thumb="{{item.picid }}" />
-  {{index}}: {{item.author}}
-  作者：{{item.author}} -->
+<!-- <view wx:for="bookList">
+  {{bookList[0][0]}}
+</view>
+for(var i=0;i<Object.keys(bookList).length;i++){ 总共有多少个用户 -->
+<!--  for(var j=2;j<Object.keys(bookList[i]).length;j++){  每个用户发布了多少书 -->
+    <!-- var bookName=Object.keys(bookList[i])[j];
+    "书名：",bookName,"作者：",bookList[i][bookName].author,"描述：",bookList[i][bookName].description,"图片id：",bookList[i][bookName].picid; 
+  }
+}-->
+
+
+<view class="show_msg" style="background-color: rgb(225, 218, 211);" wx:for="{{bookList}}" wx:key="item"> 
+  <text>书名：{{item._bookName}}\n</text>
+  <text>作者：{{item._author}}\n</text>
+  <text>描述：{{item._description}}\n</text>
+  <text>图片：{{item._picid}}\n\n</text>
 </view>

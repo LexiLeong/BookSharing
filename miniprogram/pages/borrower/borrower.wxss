@@ -1,0 +1,22 @@
+/* pages/borrower/borrow.wxss */
+.title
+{
+  font-size:30px;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+.inp
+{
+    background-color: white;
+    height: 30px;
+}
+.but
+{
+  margin-top:20px;
+  width:30px;
+  font-size:20px;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}

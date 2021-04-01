@@ -3,7 +3,7 @@ Page({
   data: {
     tip:''
   },
-  test:function(e)
+  test:function()
   {
     const db=wx.cloud.database();
     //要更改为借书对象的id

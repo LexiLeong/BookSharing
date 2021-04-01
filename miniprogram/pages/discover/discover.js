@@ -42,6 +42,7 @@ Page({
         //当前用户非初次发布
           db.collection('releaseInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).update({
            data:{
+              nickname: getApp().globalData.nickname,
               [bookname]:{
                 author:this.data.author,
                 picid:_picid,

@@ -130,7 +130,7 @@ Page({
       }
     })
   },
-borrowbook:function()
+borrowBook:function()
 {
   wx.navigateTo({
     url:'../borrower/borrower'

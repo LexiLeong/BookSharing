@@ -1,7 +1,7 @@
 <!--pages/search/search.wxml-->
 <!-- 查询图书展示 -->
 <view class="book-content">
-  <view wx:for="{{bookList}}">
+  <view wx:for="{{bookList}}" wx:key="index">
       <view class="book-list">
         <!-- 图书图片 -->
         <view class="book-image">

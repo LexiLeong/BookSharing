@@ -8,8 +8,8 @@
 
 <!-- 首页图书展示 -->
 <view class="book-content">
-  <view wx:for="{{bookList}}">
-      <view class="book-list">
+  <view wx:for="{{bookList}}" wx:key="index">
+      <view class="book-list" bindtap="seeBookDetail" data-item="{{item}}">
         <!-- 图书图片 -->
         <view class="book-image">
           <image src="{{item._picid}}" mode="aspectFit"></image>

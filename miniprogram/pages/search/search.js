@@ -22,8 +22,6 @@ Page({
     // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据
     eventChannel.on('acceptDataFromOpenerPage', function(inputMsg) {
       console.log("in search",inputMsg)
-
-      
       var arr=[]
       db.collection('releaseInfo').where({})
       .get({
@@ -31,7 +29,7 @@ Page({
           for(var i=0;i<Object.keys(res.data).length;i++){//总共有多少个用户
             for(var j=2;j<Object.keys(res.data[i]).length;j++){//每个用户发布了多少书
               var bookName=Object.keys(res.data[i])[j];
-              console.log("bookName=",bookName,"\ninputMsg=",inputMsg)
+              // console.log("bookName=",bookName,"\ninputMsg=",inputMsg)
               if(bookName==inputMsg){
                 var _={
                   _bookName:Object.keys(res.data[i])[j],

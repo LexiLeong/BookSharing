@@ -24,5 +24,8 @@ for(var i=0;i<Object.keys(bookList).length;i++){ 总共有多少个用户 -->
   <text>书名：{{item._bookName}}\n</text>
   <text>作者：{{item._author}}\n</text>
   <text>描述：{{item._description}}\n</text>
-  <text>图片：{{item._picid}}\n\n</text>
+  <text>图片：</text>
+  <view>
+    <image src="{{item._picid}}"></image>
+  </view>
 </view>

@@ -17,25 +17,46 @@ Page({
           var index1=Object.keys(res.data[0])[i];
           var _bkname=index1;
           var index2='lenderInfo';
-          for(var t=0;t<Object.keys(res.data[0][[index1]]['lenderInfo']).length;t++)
+          for(var t=Object.keys(res.data[0][[index1]]['lenderInfo']).length-1;t>-1;t--)
           {
+            var color;
+            if(Object.values(res.data[0][[index1]]['lenderInfo'])[0]['isread']==-1){
+              color='green';
+            }
+            else{
+              color="white";
+            }
             var _={ bookname:_bkname,
-                    borrower:Object.keys(res.data[0][[index1]]['lenderInfo'])[t],
-                    msg:Object.values(res.data[0][[index1]]['lenderInfo'])[t]
+                    nickname:Object.values(res.data[0][[index1]]['lenderInfo'])[0]['nickname'],
+                    msg:Object.values(res.data[0][[index1]]['lenderInfo'])[0]['msg'],
+                    color:color
                   }
+            //把获取的数字加载入数组，渲染画面
             arr.push(_);
-            if(t==Object.keys(res.data[0][[index1]]['lenderInfo']).length-1)
-            {
-              var a=arr;
-              wx.getSystemInfo({
+            var a=arr;
+            wx.getSystemInfo({
               success: function (res) {
                 that.setData({
                   array: a,
                 })
           }})
-        }
+          console.log(index1);
+          //被借人id
+          db.collection('lendInfo').where({_openid:db.command.eq('on_ai4t9jBrabqoJLLdKxmsgsaMw')}).update({
+            data:{
+            [index1]:{
+              lenderInfo:{
+                [Object.keys(res.data[0][[index1]]['lenderInfo'])[t]]:{
+                  isread: 0
+              }
+            }
+            }
+          }
+          })
          }
         }
+        //结束渲染后，将信息标记标记为已读
+        
       }
     })
     

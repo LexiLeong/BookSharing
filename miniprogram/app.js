@@ -18,9 +18,9 @@ App({
         traceUser: true,
       })
     }
-    this.getNickname();
     this.getOpenid();
     this.watch_db();
+    this.getNickname();
   } ,
   //获取当前用户的openid
   getNickname()
@@ -43,17 +43,20 @@ App({
       this.globalData.openid = res.result.openId;
      }
 })
-    setTimeout(()=>{resolve(this.globalData.openid)},1000)
+    setTimeout(()=>{resolve(this.globalData.openid)},1500)
 })
 },
   //监控云数据库
   async watch_db(){
+    console.log('watch_db');
     var a= await this.getOpenid();
     const db=wx.cloud.database();
+    console.log(this.globalData.openid);
     db.collection('lendInfo').where({_openid:db.command.eq(this.globalData.openid)}).watch({
       onChange: snapshot=> {
         //判断是否为程序初启动时的监听
-        if (this.globalData.init==-1 ){
+        console.log('watching');
+        if (this.globalData.init==-1){
           this.globalData.init=0;
           return ;
         }

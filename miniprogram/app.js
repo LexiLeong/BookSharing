@@ -5,7 +5,8 @@ App({
     releasesum:0,//发布的书的总数
     unreadsum:0,//待读消息数
     init:-1 ,//判断是否初始启动
-    currbook:''//目前操作的书名
+    currbook:'',//目前操作的书名
+    nickname:''
   },
     onLaunch: function () {
 
@@ -17,10 +18,21 @@ App({
         traceUser: true,
       })
     }
+    this.getNickname();
     this.getOpenid();
     this.watch_db();
   } ,
   //获取当前用户的openid
+  getNickname()
+  {
+    wx.getUserInfo({
+      desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+      success: (res) => {
+        this.globalData.nickname=res.userInfo.nickName
+      }
+    })
+   
+  },
   getOpenid() {
     return new Promise((resolve, reject)=>{
      let that = this;

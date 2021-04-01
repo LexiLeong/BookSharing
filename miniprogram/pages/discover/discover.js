@@ -24,16 +24,16 @@ Page({
           const _=db.command;
           //当当前用户初次发布,建立结构
           if(res.data.length==0){
-          console.log("no exist");
           //发布信息数据库的更新
           db.collection('releaseInfo').add({
             data:{
+              
             }
           })
           //借阅信息数据库的更新
           db.collection('lendInfo').add({
             data:{
-
+              
              }
            })
         }
@@ -42,6 +42,7 @@ Page({
         //当前用户非初次发布
           db.collection('releaseInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).update({
            data:{
+              nickname: getApp().globalData.nickname,
               [bookname]:{
                 author:this.data.author,
                 picid:_picid,

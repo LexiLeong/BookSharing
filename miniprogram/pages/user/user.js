@@ -26,8 +26,10 @@ Page({
      }}})
   },
   show_lend(){
+    // var that = this;
+    // var myID = getApp().globalData.openid;//that.data.inputSearchBook;
     wx.navigateTo({
-      url: "/pages/userRelease/userRelease"
+      url: '../../pages/userRelease/userRelease',
     })
   },
   show_msg(){

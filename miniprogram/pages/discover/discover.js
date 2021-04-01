@@ -8,9 +8,40 @@ Page({
     author:'',
     description:'',
   },
+   getBookname:function(e){//输入时获取内容书名
+    this.setData({
+      bookname: e.detail.value
+    })
+  },
+  getAuthor:function(e){//输入时获取内容作者
+    this.setData({
+      author: e.detail.value
+    })
+  },
   //确定发布后的数据库更新操作
   release:function()
   {
+    let bookname = this.data.bookname;
+    let author = this.data.author;
+    if(bookname=='')
+  {
+    wx.showToast({
+      title: '书名不能为空',
+      icon: "none"
+    })
+    return false
+  }
+  else if(author=='')
+  {
+    wx.showToast({
+      title: '作者不能为空',
+      icon: "none"
+    })
+    return false
+  }
+  else{
+
+  
     let _picid=this.data.img_id;
     //若实则未上传照片
     if(this.data.flag_pic==0)
@@ -62,7 +93,12 @@ Page({
            })
         }
   })
+  wx.showToast({
+    title:"发布成功",
+    icon:"success"
+    })
   this.data.path_img='';
+}
 },
 
   upload(){

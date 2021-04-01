@@ -1,2 +1,21 @@
 <!--pages/search/search.wxml-->
-<text>pages/search/search.wxml</text>
+<!-- 查询图书展示 -->
+<view class="book-content">
+  <view wx:for="{{bookList}}">
+      <view class="book-list">
+        <!-- 图书图片 -->
+        <view class="book-image">
+          <image src="{{item._picid}}" mode="aspectFit"></image>
+        </view>
+        <!-- 图书信息 -->
+        <view class="book-info">
+          <view class="book-info-style">
+            <view>书名：{{item._bookName}}</view>
+            <view>作者：{{item._author}}</view>
+            <view>描述：{{item._description}}</view>
+            <button class="borrow-book" bindtap="borrowBook" type="primary" size="mini">借书</button>
+          </view>
+        </view>
+      </view>
+    </view>
+</view>

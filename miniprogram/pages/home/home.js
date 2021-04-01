@@ -7,7 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    bookList:[]
+    bookList:[],
+    inputSearchBook:""
   },
  /**
    * 生命周期函数--监听页面加载
@@ -17,7 +18,6 @@ Page({
     this.getData();
   },
   getData(){
-    
     let that = this
     var arr=[]
     db.collection('releaseInfo').where({})
@@ -53,7 +53,65 @@ Page({
       }
     })
   },
+  inputSearchBook:function(e) {
+    this.data.inputSearchBook=e.detail.value;
+  },
+  searchBook: function (e) {
+    var that = this;
+    var inputMsg = that.data.inputSearchBook;
+    if(inputMsg){
+      wx.navigateTo({
+        url: '../../pages/search/search',
+        events: {
+          // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+          acceptDataFromOpenedPage: function(inputMsg) {
+            // console.log("in home",inputMsg)
+          }
+        },
+        success: function(res) {
+          // 通过eventChannel向被打开页面传送数据
+          res.eventChannel.emit('acceptDataFromOpenerPage', inputMsg)
+        }
+      })
+    }
+    else{
+      wx.showToast({
+        title: '输入不能为空',
+        icon: 'none',
+        duration: 1500
+      })
+    }
 
+    console.log(this.data.inputSearchBook);
+    // 
+    // var options = {
+    //   url: config.clubApi.list,
+    //   data: {
+    //     appkey: config.appKey,
+    //     type: 'bookLibrary',
+    //     // columns:'title',
+    //     keywords: inputMsg
+    //     //columns: ['id', 'isbn13', 'title']
+    //   }
+    // };
+
+    // util.request(options, (res, err) => {
+    //   var books = [];
+    //   for (var i = 0; i < res.data.result.length; i++) {
+    //     books.push(res.data.result[i].value);
+    //   }
+    //   that.setData({
+    //     bookList: books
+    //   });
+    // });
+
+  },
+
+
+
+  borrowBook:function(){
+    console.log("点击借书")
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

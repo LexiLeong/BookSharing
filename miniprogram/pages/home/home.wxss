@@ -1,4 +1,42 @@
 /* pages/home/home.wxss */
+.search-bar {
+  z-index: 1;
+  height: 30px;
+  padding: 5px;
+}
+
+/* .search-bar icon{
+  z-index: 100;
+  padding-left: 25rpx;
+  padding-top: 10rpx;
+} */
+.search-bar input {
+  background-color: #fff;
+  border-radius: 5px;
+  width: 520rpx;
+  height: 70rpx;
+  margin-top: 20rpx;
+  margin-bottom: 15rpx;
+  position: fixed;
+  top: 0;
+  left: 25rpx;
+  padding-left: 30rpx;
+}
+.input-placeholder {
+  font-size: 30rpx;
+}
+
+.search-bar button {
+  height: 65rpx;
+  line-height: 70rpx;
+  position: fixed;
+  top: 20rpx;
+  left: 610rpx;
+  font-size: 30rpx;
+  color: #fbf9fe;
+}
+
+
 .book-content{
   margin-top: 10rpx;
 }
@@ -53,8 +91,4 @@
 .line{
   width: 100%;
   border: 1px solid #eee;
-}
-
-.borrow-book{
-
 }

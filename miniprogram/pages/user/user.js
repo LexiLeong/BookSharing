@@ -12,7 +12,6 @@ Page({
     var bookname='发布3';    //获取借入的书的名字
     getApp().globalData.currbook=bookname;
       //被借人的id
-
     db.collection('lendInfo').where({_openid:db.command.eq('on_ai4t9jBrabqoJLLdKxmsgsaMw')}).update({
       data:{
         [bookname]:{

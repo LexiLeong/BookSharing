@@ -30,7 +30,8 @@ Page({
               _bookName:Object.keys(res.data[i])[j],
               _author:res.data[i][bookName].author,
               _description:res.data[i][bookName].description,
-              _picid:res.data[i][bookName].picid
+              _picid:res.data[i][bookName].picid,
+              _id:res.data[i]['_openid']
             }
             arr.push(_);
             //console.log("书名：",_.bookName,"作者：",_._author,"描述：",_._description,"图片id：",_._picid);
@@ -119,15 +120,19 @@ Page({
       },
       success: function(res) {
         // 通过eventChannel向被打开页面传送数据
-        res.eventChannel.emit('acceptDataFromOpenerPage', bookNameMsg)
+        res.eventChannel.emit('acceptDataFromOpenerPage', 
+        { bookName:e.currentTarget.dataset.item._bookName,
+          author:e.currentTarget.dataset.item._author,
+          description: e.currentTarget.dataset.item._description ,
+          picid:e.currentTarget.dataset.item._picid,
+          id:e.currentTarget.dataset.item._id        
+         })
       }
     })
   },
 
 
-  borrowBook:function(){
-    console.log("点击借书")
-  },
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

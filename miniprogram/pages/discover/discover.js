@@ -24,16 +24,16 @@ Page({
           const _=db.command;
           //当当前用户初次发布,建立结构
           if(res.data.length==0){
-          console.log("no exist");
           //发布信息数据库的更新
           db.collection('releaseInfo').add({
             data:{
+              
             }
           })
           //借阅信息数据库的更新
           db.collection('lendInfo').add({
             data:{
-
+              
              }
            })
         }

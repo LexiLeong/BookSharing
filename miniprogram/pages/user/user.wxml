@@ -12,5 +12,5 @@
   </view>
   <view class="option" id='msg' bindtap="show_msg">待处理的出借消息</view>
 </view>
-<button bindtap="test" type="primary" id="but" open-type='getUserInfo' bindgetuserinfo="onGotUserInfo">借书</button>
+<button bindtap="test" type="primary" id="but">借书</button>
 <label value="{{tip}}"></label>

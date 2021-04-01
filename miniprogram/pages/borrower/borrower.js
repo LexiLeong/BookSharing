@@ -65,7 +65,7 @@ certain:function()
           title:"借书中",
           })
           setTimeout(function () {
-            that.borrowbook()
+            that.borrowbooks()
             }, 1000)   
       }
       else{
@@ -76,7 +76,7 @@ certain:function()
   }
   
 },
-borrowbook:function()
+borrowbooks:function()
 {
   var bookname="围城" //书名
   //console.log(getApp().getOpenid())

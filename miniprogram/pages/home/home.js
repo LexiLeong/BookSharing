@@ -130,7 +130,31 @@ Page({
       }
     })
   },
-
+borrowbook:function()
+{
+  wx.navigateTo({
+    url:'../borrower/borrower'
+  })
+  /*let that=this;
+  wx.showModal({
+    title:"提示",
+    content:"是否确定借这本书?",
+    success:function(res)
+    {
+      if(res.confirm){
+          wx.showLoading({
+          title:"借书中",
+          })
+          setTimeout(function () {
+            that.borrowbook()
+            }, 1000)   
+      }
+      else{
+        console.log("用户点击取消")
+      }
+    }
+  })*/
+},
 
   
   /**

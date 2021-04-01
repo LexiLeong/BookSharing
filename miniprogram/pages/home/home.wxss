@@ -21,7 +21,6 @@
 }
 
 .book-image image{
-  
   height: 242rpx;
   width: 242rpx;
 }
@@ -54,4 +53,8 @@
 .line{
   width: 100%;
   border: 1px solid #eee;
+}
+
+.borrow-book{
+
 }

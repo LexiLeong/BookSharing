@@ -9,7 +9,7 @@ Page({
     var db=wx.cloud.database();
     var arr=[];
     db.collection('lendInfo').where({
-      _openid:getApp().globalData.openid,
+      _openid:db.command.eq(getApp().globalData.openid)
     }).get({
       success: function(res) {
         for(var i=2 ;i<Object.keys(res.data[0]).length;i++)
@@ -19,17 +19,19 @@ Page({
           var index2='lenderInfo';
           for(var t=Object.keys(res.data[0][[index1]]['lenderInfo']).length-1;t>-1;t--)
           {
+            var id=Object.keys(res.data[0][[index1]]['lenderInfo'])[t];
             var color;
             if(Object.values(res.data[0][[index1]]['lenderInfo'])[0]['isread']==-1){
               color='green';
             }
             else{
-              color="white";
+              color="black";
             }
             var _={ bookname:_bkname,
                     nickname:Object.values(res.data[0][[index1]]['lenderInfo'])[0]['nickname'],
                     msg:Object.values(res.data[0][[index1]]['lenderInfo'])[0]['msg'],
-                    color:color
+                    color:color,
+                    id:id
                   }
             //把获取的数字加载入数组，渲染画面
             arr.push(_);
@@ -40,9 +42,8 @@ Page({
                   array: a,
                 })
           }})
-          console.log(index1);
           //被借人id
-          db.collection('lendInfo').where({_openid:db.command.eq('on_ai4t9jBrabqoJLLdKxmsgsaMw')}).update({
+          db.collection('lendInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).update({
             data:{
             [index1]:{
               lenderInfo:{
@@ -56,11 +57,38 @@ Page({
          }
         }
         //结束渲染后，将信息标记标记为已读
-        
       }
     })
     
   },
+  lendConfirm(e){
+    var bookname=e.currentTarget.dataset.item['bookname'];
+    var lendid=e.currentTarget.dataset.item['id'];
+    var lender=e.currentTarget.dataset.item['nickname'];
+    const db=wx.cloud.database();
+    //当用户初次借书
+    db.collection('borrowInfo').where({_openid:db.command.eq(lendid)}).get({
+    success: res => {
+      if(res.data.length==0){
+      //发布信息数据库的更新
+      db.collection('borrowInfo').add({
+        data:{
+          
+        }
+      })
+    }
+  }
+})
+db.collection('releaseInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).update({
+  data:{
+     [bookname]:{
+       isreturn:-1,//-1则未归还，0则归还
+       owner:lender,
+       returntime:'2022',
+       wxid:'test'
+     }
+  }})
+},
   onReady: function () {
   },
   

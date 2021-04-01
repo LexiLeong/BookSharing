@@ -4,7 +4,8 @@
     "pages/discover/discover",
     "pages/user/user",
     "pages/search/search",
-    "pages/msg/msg"
+    "pages/msg/msg",
+    "pages/lendConfirm/lendConfirm"
   ],
   "tabBar": {
     "list": [

@@ -1,8 +1,14 @@
 <!--pages/msg/msg.wxml-->
 <!--pages/plan/plans/plans.wxml-->
-<view class="show_msg" style="background-color: rgb(225, 218, 211);" wx:for="{{array}}" wx:key="item"> 
-<text style="color:{{item.color}}">书名{{item.bookname}}\n</text>
-<text>借阅人{{item.nickname}}\n</text>
-<text>借阅人留言{{item.msg}}\n</text>
-<button type="primary">借</button>
+<view class="outside"   wx:for="{{array}}" wx:key="index">
+<view class="show_msg_style">
+<view class="show_msg"> 
+<view style="color:{{item.color}}">书名:{{item.bookname}}\n</view>
+<view style="color:{{item.color}}">借阅人:{{item.nickname}}\n</view>
+<view style="color:{{item.color}}">借阅人留言:{{item.msg}}\n</view>
+<view id="getId">用户id【隐藏】:{{item.id}}</view>
+<button type="primary" class="lend_but" size="mini" bindtap="lendConfirm" data-item="{{item}}">借</button>
+</view>
+</view>
+<view class="line"> </view>
 </view>

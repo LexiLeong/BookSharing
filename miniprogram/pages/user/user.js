@@ -19,6 +19,7 @@ Page({
           lendnum:db.command.inc(1),//该书目的借阅数+1
           lenderInfo:{
             [getApp().globalData.openid]:{
+              nickname:getApp().globalData.nickname,
               msg:msg,//申请借阅人ID：留言
               isread:-1//这个消息被借人读取否；否为-1，是为1
             }

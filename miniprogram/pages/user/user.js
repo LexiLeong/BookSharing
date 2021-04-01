@@ -25,6 +25,11 @@ Page({
        },
      }}})
   },
+  show_lend(){
+    wx.navigateTo({
+      url: "/pages/userRelease/userRelease"
+    })
+  },
   show_msg(){
     wx.navigateTo({
       url: "/pages/msg/msg"

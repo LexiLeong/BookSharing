@@ -104,10 +104,3 @@ Page({
 
   }
 })
-
-
-
-            // console.log("书名：",bookName,"作者：",res.data[i][bookName].author,"描述：",res.data[i][bookName].description,"图片id：",res.data[i][bookName].picid);
-            // console.log(res.data[i][bookName].author);
-            // console.log(res.data[i][bookName].description);
-            // console.log(res.data[i][bookName].picid);

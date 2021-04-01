@@ -1,28 +1,26 @@
 <!--pages/home/home.wxml-->
 
+<!-- 搜索框 -->
 <view class="searchInput">
-  <!-- 搜索框 -->
   <searchInput></searchInput>
 </view>
 
-<view class="unit">
-  <button bindtap="getData" type="primary">最新发布</button>
-</view>
-
-<!-- <view wx:for="bookList">
-  {{bookList[0][0]}}
-</view>
-for(var i=0;i<Object.keys(bookList).length;i++){ 总共有多少个用户 -->
-<!--  for(var j=2;j<Object.keys(bookList[i]).length;j++){  每个用户发布了多少书 -->
-    <!-- var bookName=Object.keys(bookList[i])[j];
-    "书名：",bookName,"作者：",bookList[i][bookName].author,"描述：",bookList[i][bookName].description,"图片id：",bookList[i][bookName].picid; 
-  }
-}-->
-
-
-<view class="show_msg" style="background-color: rgb(225, 218, 211);" wx:for="{{bookList}}" wx:key="item"> 
-  <text>书名：{{item._bookName}}\n</text>
-  <text>作者：{{item._author}}\n</text>
-  <text>描述：{{item._description}}\n</text>
-  <text>图片：{{item._picid}}\n\n</text>
-</view>
+<view class="book-content">
+  <view wx:for="{{bookList}}">
+    <!-- <view wx:for="{{bookList}}" wx:key="ISBN13" id="{{item.isbn13}}" data-qty="{{item.qty}}" bindtap="goToDetailPage"> -->
+      <view class="book-list">
+        <view class="book-image">
+          <image src="{{item._picid}}" mode="aspectFit"></image>
+        </view>
+        <view class="book-info">
+          <view class="book-info-style">
+            <view>书名：{{item._bookName}}</view>
+            <view>作者：{{item._author}}</view>
+            <view>描述：{{item._description}}</view>
+            <button class="borrow-book" bindtap="borrowBook" type="primary" id="but">借书</button>
+          </view>
+        </view>
+      </view>
+      <view class="line"></view>
+    </view>
+  </view>

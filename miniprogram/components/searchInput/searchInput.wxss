@@ -1,6 +1,6 @@
 /* components/searchInput/searchInput.wxss */
 .searchInput {
-  height: 45px;
+  height: 30px;
   padding: 5px;
   background-color: #dad4d4;
 }

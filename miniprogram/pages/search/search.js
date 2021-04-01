@@ -44,6 +44,9 @@ Page({
   },
   borrowBook()
   {
+    wx.navigateTo({
+      url:'../borrower/borrower'
+    })
 
   },
   loadLend_db:function(e){

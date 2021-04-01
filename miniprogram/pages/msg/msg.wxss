@@ -1,1 +1,47 @@
 /* pages/msg/msg.wxss */
+.show_msg {
+  display: block;
+  font-size: 30rpx;
+  margin-top: 8rpx;
+  margin-bottom: 10px;
+  width: 460rpx;
+  text-overflow:ellipsis; 
+  overflow:hidden; 
+  white-space:nowrap; 
+  margin-top: 8rpx;
+  background-color: white;
+}
+.line{
+  width: 100%;
+}
+.show_msg{
+  background-color: #fff;
+  flex: 0 0 66%;
+  box-sizing: border-box;
+  height: 270rpx;
+  margin-left: 20rpx;
+}
+.show_msg view{
+  display: block;
+  font-size: 30rpx;
+  margin-top: 8rpx;
+  margin-bottom: 10px;
+  width: 460rpx;
+  text-overflow:ellipsis; 
+  overflow:hidden; 
+  white-space:nowrap; 
+  margin-top: 8rpx;
+}
+.outside{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content:flex-start;
+  box-sizing: border-box;
+  margin-top: 20rpx;
+  background-color: #fff;
+}
+#getId{
+  display: none;
+}

@@ -6,7 +6,8 @@
     "pages/search/search",
     "pages/msg/msg",
     "pages/borrower/borrower",
-    "pages/userRelease/userRelease"
+    "pages/userRelease/userRelease",
+    "pages/lendConfirm/lendConfirm"
   ],
   "tabBar": {
     "list": [

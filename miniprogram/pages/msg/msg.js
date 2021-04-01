@@ -42,21 +42,7 @@ Page({
   },
   onReady: function () {
   },
-  test()
-  {
-    return new Promise((resolve, reject)=>{
-    var a=this.data.arr;
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          //btn
-          array: a,
-        })
-  }})
-  console.log(a);
-  setTimeout(()=>{resolve(this.data.arr)},1500)
-})
-  },
+  
   /**
    * 生命周期函数--监听页面显示
    */

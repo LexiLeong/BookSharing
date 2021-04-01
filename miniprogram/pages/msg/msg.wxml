@@ -1,7 +1,7 @@
 <!--pages/msg/msg.wxml-->
 <!--pages/plan/plans/plans.wxml-->
 <view class="show_msg" style="background-color: rgb(225, 218, 211);" wx:for="{{array}}" wx:key="item"> 
-<text>{{item.bookname}}</text>
-<text>{{item.borrower}}</text>
-<text>{{item.msg}}</text>
+<text>书名{{item.bookname}}\n</text>
+<text>借阅人{{item.borrower}}\n</text>
+<text>借阅人留言{{item.msg}}\n</text>
 </view>

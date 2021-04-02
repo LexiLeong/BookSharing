@@ -79,15 +79,25 @@ Page({
     }
   }
 })
-db.collection('releaseInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).update({
+console.log(bookname);
+db.collection('borrowInfo').where({_openid:db.command.eq(lendid)}).update({
   data:{
      [bookname]:{
-       isreturn:-1,//-1则未归还，0则归还
        owner:lender,
+       ownerId:getApp().globalData.openid,
+       wxid:'test',
        returntime:'2022',
-       wxid:'test'
+       isreturn:-1,//-1则未归还，0则归还
+      
      }
   }})
+  db.collection('lendInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).update({
+    data:{
+      [bookname]:{
+        lendnum:-1//lendnum为-1表示已借
+      }
+    }
+  })
 },
   onReady: function () {
   },

@@ -41,7 +41,6 @@ Page({
   }
   else{
 
-  
     let _picid=this.data.img_id;
     //若实则未上传照片
     if(this.data.flag_pic==0)

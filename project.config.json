@@ -19,8 +19,9 @@
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
     "compileHotReLoad": false,
-    "useMultiFrameRuntime": false,
+    "useMultiFrameRuntime": true,
     "useApiHook": true,
+    "useApiHostProcess": false,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -31,13 +32,14 @@
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
+    "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true
   },
   "appid": "wxeac6ba8b8e2ad0d3",
   "projectname": "BookSharing",
-  "libVersion": "2.14.1",
+  "libVersion": "2.16.0",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {

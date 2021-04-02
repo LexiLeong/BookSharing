@@ -2,14 +2,13 @@
 App({
   globalData:{//全局变量
     openid:"",
-    releasesum:0,//发布的书的总数
     unreadsum:0,//待读消息数
     init:-1 ,//判断是否初始启动
     currbook:'',//目前操作的书名
     nickname:''
   },
     onLaunch: function () {
-
+    
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
     } else {
@@ -18,16 +17,19 @@ App({
         traceUser: true,
       })
     }
+    this.getNickname();
     this.getOpenid();
     this.watch_db();
-    this.getNickname();
+    
   } ,
   //获取当前用户的openid
   getNickname()
   {
+    console.log('trying to get nickname');
     wx.getUserInfo({
       desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: (res) => {
+        //console.log('user:',res);
         this.globalData.nickname=res.userInfo.nickName
       }
     })
@@ -51,7 +53,7 @@ App({
     console.log('watch_db');
     var a= await this.getOpenid();
     const db=wx.cloud.database();
-    console.log(this.globalData.openid);
+   // console.log(this.globalData.openid);
     db.collection('lendInfo').where({_openid:db.command.eq(this.globalData.openid)}).watch({
       onChange: snapshot=> {
         //判断是否为程序初启动时的监听
@@ -60,7 +62,6 @@ App({
           this.globalData.init=0;
           return ;
         }
-        var a=this.globalData.releasesum.toString();
         console.log(snapshot.docChanges[0]);
         var test=this.globalData.currbook+'.lenderInfo.'+this.globalData.openid;
         console.log(test);
@@ -79,7 +80,6 @@ App({
             index:2,
             text:index
           })
-        
       },
       onError: err=> {
         console.error('the watch closed because of error', err)

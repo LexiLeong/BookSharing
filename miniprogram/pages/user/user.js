@@ -57,12 +57,38 @@ Page({
       url: "/pages/msg/msg"
     })
   },
+  show_borrow()
+  {
+    wx.navigateTo({
+      url: '/pages/showBorrow/showBorrow',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-   
-    //getApp().watch_db();
+   /*
+    console.log('watch_db');
+    const db=wx.cloud.database();
+    console.log(getApp().globalData.openid);
+    db.collection('lendInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).update({
+      data:{kll:33333}
+
+    }).then(res => {
+      console.log(res)
+    })
+    .catch(console.error);
+    db.collection('lendInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).watch({
+      onChange: snapshot=> {
+        //判断是否为程序初启动时的监听
+        console.log('在看了在看了');
+      },
+      onError: err=> {
+        console.error('the watch closed because of error', err)
+      }
+
+  })
+  */
   },
 
   /**

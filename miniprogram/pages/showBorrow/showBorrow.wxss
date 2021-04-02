@@ -1,4 +1,4 @@
-/* pages/search/search.wxss */
+/* pages/showBorrow/showBorrow.wxss */
 .book-content{
   margin-top: 10rpx;
 }
@@ -26,18 +26,15 @@
 .book-info-style{
   margin-left: 20px;
   background-color: white;
+  padding-bottom: 5px;
 }
 
 .book-info-style view{
   display: block;
   font-size: 30rpx;
-  margin-top: 8rpx;
   margin-bottom: 10px;
   width: 100%;
   text-overflow:ellipsis; 
   overflow:hidden; 
   white-space:normal; 
-}
-#getId{
-  display: none;
 }

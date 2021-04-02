@@ -28,8 +28,28 @@ Page({
   show_lend(){
     // var that = this;
     // var myID = getApp().globalData.openid;//that.data.inputSearchBook;
-    wx.navigateTo({
-      url: '../../pages/userRelease/userRelease',
+    var that=this;
+    var db=wx.cloud.database();
+    var arr=[];
+    db.collection('releaseInfo').where({
+      _openid:db.command.eq(getApp().globalData.openid)
+    }).get({
+      success: function(res) {
+        console.log(Object.keys(res.data[0]).length);
+        if(Object.keys(res.data[0]).length==3){
+          //提示当前没有发布图书
+          wx.showToast({
+            title: '当前没有发布图书',
+            icon: 'none',
+            duration: 1500
+          })
+        }
+        else{
+          wx.navigateTo({
+            url: '../../pages/userRelease/userRelease',
+          })
+        }
+      }
     })
   },
   show_msg(){

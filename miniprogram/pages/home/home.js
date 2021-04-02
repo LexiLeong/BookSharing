@@ -24,7 +24,7 @@ Page({
     .get({
       success(res) { // res.data 是一个包含集合中有权限访问的所有记录的数据，不超过 20 条
         for(var i=0;i<Object.keys(res.data).length;i++){//总共有多少个用户
-          for(var j=2;j<Object.keys(res.data[i]).length;j++){//每个用户发布了多少书
+          for(var j=3;j<Object.keys(res.data[i]).length;j++){//每个用户发布了多少书
             var bookName=Object.keys(res.data[i])[j];
             var _={
               _bookName:Object.keys(res.data[i])[j],

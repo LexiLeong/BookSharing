@@ -23,24 +23,103 @@ Page({
     // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据
     var temp;
     eventChannel.on('acceptDataFromOpenerPage', function(inputMsg) {
-      var _={
-      _bookName:inputMsg['bookName'],
-      _author:inputMsg['author'],
-      _description:inputMsg['description'],
-      _picid:inputMsg['picid']}
-      arr.push(_);
-      var a=arr;
-      wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-           bookList: a,
+      if(typeof(inputMsg)=='object'){
+        var _={
+          _bookName:inputMsg['bookName'],
+          _author:inputMsg['author'],
+          _description:inputMsg['description'],
+          _picid:inputMsg['picid']
+        }
+        arr.push(_);
+        wx.getSystemInfo({
+        success: function (res) {
+          that.setData({
+             bookList: arr,
+             inputMsg:_
             })
           }
+        })
+        // console.log("first",this.data.inputMsg)
+
+        // console.log("bookList：",this.data.bookList);
+        // console.log("qqq",inputMsg);
+        // console.log("hhh",typeof(inputMsg));
+        // temp=inputMsg;
+        // this.data.inputMsg=temp;
+      }
+      else if(typeof(inputMsg)=='string'){
+        db.collection('releaseInfo').where({})
+      .get({
+        success(res) { // res.data 是一个包含集合中有权限访问的所有记录的数据，不超过 20 条
+          for(var i=0;i<Object.keys(res.data).length;i++){//总共有多少个用户
+            for(var j=3;j<Object.keys(res.data[i]).length;j++){//每个用户发布了多少书
+              var bookName=Object.keys(res.data[i])[j];
+              //console.log("bookName=",bookName,"\ninputMsg=",inputMsg)
+              if(bookName==inputMsg){
+                var _={
+                  _bookName:Object.keys(res.data[i])[j],
+                  _author:res.data[i][bookName].author,
+                  _description:res.data[i][bookName].description,
+                  _picid:res.data[i][bookName].picid
+                }
+                arr.push(_);
+                // wx.getSystemInfo({
+                //   success: (res) =>  {
+                   
+                //   // success: function (res) {
+                //     console.log("in success",arr)
+                //     console.log("in success",_)
+                //     that.setData({
+                //       bookList: arr,
+                //       inputMsg:_
+                //     })
+                //     wx.showModal({
+                //       content: '纬度：' + that.data.bookList[0] + ',经度： ' +  that.data.inputMsg
+                //     }) 
+                //     console.log("after setData",this.data.bookList[0])
+                //     console.log("after setData",this.data.inputMsg)
+                //   }
+                // })
+   
+                //console.log("书名：",_.bookName,"作者：",_._author,"描述：",_._description,"图片id：",_._picid);
+                // var a=arr;
+                // wx.getSystemInfo({
+                //   success: function (res) {
+                //     that.setData({
+                //       bookList: a,
+                //       inputMsg:_
+                //     })
+                //   }
+                // })
+              }
+            }
+          }
+
+
+          console.log("in success",arr)
+          console.log("in success",_)
+          that.setData({
+            // bookList,
+            bookList: arr,
+            inputMsg:_
+          })
+          console.log("after setData",this.data.bookList)
+          console.log("after setData",this.data.inputMsg)
+
+
+
+        },
+        fail(res){
+          console.log("fail",res)
+        }
       })
-     temp=inputMsg;
-     
+      }
     })
-    this.data.inputMsg=temp;
+    
+
+    //this.data.inputMsg=temp;
+    console.log("finalaaa",that.data.bookList)
+    console.log("finalbbb",that.data.inputMsg)
   },
   borrowBook()
   {

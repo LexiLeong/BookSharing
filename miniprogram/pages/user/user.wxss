@@ -1,7 +1,7 @@
 /* pages/user/user.wxss */
 #head{
   align-items: center;
-  background-color: beige;
+  background-color:white;
   height: 100px;
 }
 #user_icon{

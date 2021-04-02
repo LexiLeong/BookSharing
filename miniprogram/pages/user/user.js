@@ -3,28 +3,7 @@ Page({
   data: {
     tip:''
   },
-  test:function()
-  {
-    const db=wx.cloud.database();
-    //要更改为借书对象的id
-    //要更改对应书目索引的列表
-    var msg="i want to borrow"//借家留下的信息
-    var bookname='发布3';    //获取借入的书的名字
-    getApp().globalData.currbook=bookname;
-      //被借人的id
-    db.collection('lendInfo').where({_openid:db.command.eq('on_ai4t9jBrabqoJLLdKxmsgsaMw')}).update({
-      data:{
-        [bookname]:{
-          lendnum:db.command.inc(1),//该书目的借阅数+1
-          lenderInfo:{
-            [getApp().globalData.openid]:{
-              nickname:getApp().globalData.nickname,
-              msg:msg,//申请借阅人ID：留言
-              isread:-1//这个消息被借人读取否；否为-1，是为1
-            }
-       },
-     }}})
-  },
+
   show_lend(){
     // var that = this;
     // var myID = getApp().globalData.openid;//that.data.inputSearchBook;

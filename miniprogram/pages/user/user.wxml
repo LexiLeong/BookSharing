@@ -10,9 +10,6 @@
   <view class="option" id="borrowed" bindtap="show_borrow">
     <span>全部已借入书目</span>
   </view>
-  <view class="option" id="borrowed" bindtap="show_lend">
-    <span>全部已借出书目</span>
-  </view>
   <view class="option" id='msg' bindtap="show_msg">待处理的出借消息</view>
 </view>
 <label value="{{tip}}"></label>

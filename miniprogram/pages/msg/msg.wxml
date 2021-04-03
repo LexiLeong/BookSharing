@@ -13,7 +13,8 @@
 </view>
 <view class="line"> </view>
 </view>
-<modal hidden="{{hiddenmodalput}}" title="完善资料" confirm-text="提交" cancel-text="取消" bindcancel="cancelM" bindconfirm="confirmM">
-      <input bindinput='returnTime' type='text' placeholder="请输入姓名..." auto-focus/>
-      <input bindinput='wxid' type='text' placeholder="请输入您给借书同学的微信号..." />
+ 
+     <modal hidden="{{hiddenModal}}" title="你给借书同学得信息" confirm-text="确认" cancel-text="取消" bindcancel="cancelM" bindconfirm="confirmM">
+      <input bindinput='returnTime' type='text' placeholder="请输入还书期限..." auto-focus/>
+      <input bindinput='wxid' type='text' placeholder="请输入你的微信id..." auto-focus/>
    </modal>

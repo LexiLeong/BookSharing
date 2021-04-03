@@ -6,6 +6,9 @@ Page({
     wxid:'',
   },
   onLoad: function (options) {
+    this.setData({
+      hiddenmodalput:false
+    })
     this.getData();
   },
   getData(){
@@ -77,6 +80,7 @@ Page({
     this.setData({
       hiddenmodalput:false
     })
+    console.log(this.data.wxid);
     var bookname=e.currentTarget.dataset.item['bookname'];
     var lendid=e.currentTarget.dataset.item['id'];
     var lender=e.currentTarget.dataset.item['nickname'];
@@ -103,8 +107,8 @@ db.collection('borrowInfo').where({_openid:db.command.eq(lendid)}).update({
      [index]:{
        owner:lender,
        ownerId:getApp().globalData.openid,
-       wxid:'test',
-       returntime:'2022',
+       wxid:this.data.wxid,
+       returntime:this.data.returnTime,
        isreturn:-1,//-1则未归还，0则归还
      }
   }})
@@ -135,17 +139,23 @@ db.collection('borrowInfo').where({_openid:db.command.eq(lendid)}).update({
   })
 }
 },
-
-
-confirmM: function (e) {
+confirmM:function() {
   this.setData({
-    hiddenmodalput:true,
+      hiddenModal: true
   })
 },
 
+cancelM:function() {
+  this.setData({
+      hiddenModal: true
+  })
+},
+
+
+
 wxid: function (e) {
   this.setData({
-     name:e.detail.value
+     returnTime:e.detail.value
   })
 },
 returnTime: function (e) {

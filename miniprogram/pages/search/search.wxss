@@ -154,8 +154,11 @@
 #getId{
   display: none;
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> parent of 0bc22b7 (Update search.wxss)
 .container .evaluate_contant .evaluate_item {
   font-size: 30rpx;
   position:fixed;

@@ -21,12 +21,13 @@ Page({
     let that = this
     var arr=[]
     db.collection('releaseInfo').where({})
+    .orderBy('progress', 'asc')
     .get({
       success(res) { // res.data 是一个包含集合中有权限访问的所有记录的数据，不超过 20 条
         for(var i=0;i<Object.keys(res.data).length;i++){//总共有多少个用户
-          for(var j=2;j<Object.keys(res.data[i]).length;j++){//每个用户发布了多少书
+          for(var j=0;j<Object.keys(res.data[i]).length;j++){//每个用户发布了多少书
             var bookName=Object.keys(res.data[i])[j];
-            if(bookName=='nickname'){
+            if(bookName=='nickname' || bookName=='_id' || bookName=='_openid'){
               continue;
             }
             var tempDate=new Date(res.data[i][bookName].date* 1000).toLocaleString()
@@ -37,9 +38,7 @@ Page({
               _description:res.data[i][bookName].description,
               _picid:res.data[i][bookName].picid,
               _id:res.data[i]['_openid'],
-              // _date:res.data[i][bookName].date
               _date:tempDate
-
             }
             arr.push(_);
             console.log("书名：",_._bookName,"作者：",_._author,"描述：",_._description,"图片id：",_._picid,"发布时间：",_._date);

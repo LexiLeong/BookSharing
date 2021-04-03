@@ -23,9 +23,9 @@ Page({
     }).get({
       success: function(res) {
      //   console.log(res.data[0]);      
-        for(var i=2;i<Object.keys(res.data[0]).length;i++){//遍历当前用户发布的所有书
+        for(var i=0;i<Object.keys(res.data[0]).length;i++){//遍历当前用户发布的所有书
           var bookName=Object.keys(res.data[0])[i];
-          if(bookName=='nickname'){
+          if(bookName=='nickname' || bookName=='_id' || bookName=='_openid'){
             continue;
           }
           var returnStatus;

@@ -20,7 +20,6 @@ Page({
       _openid:db.command.eq(getApp().globalData.openid)
     }).get({
       success: function(res) {
-       
         for(var i=0 ;i<Object.keys(res.data[0]).length;i++)
         {
           var index1=Object.keys(res.data[0])[i];
@@ -36,20 +35,24 @@ Page({
           }
           var _bkname=index1;
           var index2='lenderInfo';
-          for(var t=Object.keys(res.data[0][[index1]]['lenderInfo']).length-1;t>-1;t--)
+          console.log(res.data[0][index1]['lenderInfo']);
+          if(typeof res.data[0][index1]['lenderInfo']=='undefined'){
+            continue ;
+          }
+          for(var t=Object.keys(res.data[0][index1]['lenderInfo']).length-1;t>-1;t--)
           {
-            var id=Object.keys(res.data[0][[index1]]['lenderInfo'])[t];
+            var id=Object.keys(res.data[0][index1]['lenderInfo'])[t];
             var color;
-            if(Object.values(res.data[0][[index1]]['lenderInfo'])[0]['isread']==-1){
+            if(Object.values(res.data[0][index1]['lenderInfo'])[0]['isread']==-1){
               color='green';
             }
             else{
               color="black";
             }
             var _={ bookname:_bkname,
-                    nickname:Object.values(res.data[0][[index1]]['lenderInfo'])[0]['nickname'],
-                    msg:Object.values(res.data[0][[index1]]['lenderInfo'])[0]['msg'],
-                    wxid:Object.values(res.data[0][[index1]]['lenderInfo'])[0]['wxid'],
+                    nickname:Object.values(res.data[0][index1]['lenderInfo'])[0]['nickname'],
+                    msg:Object.values(res.data[0][index1]['lenderInfo'])[0]['msg'],
+                    wxid:Object.values(res.data[0][index1]['lenderInfo'])[0]['wxid'],
                     color:color,
                     id:id
                   }
@@ -68,7 +71,7 @@ Page({
             data:{
             [index1]:{
               lenderInfo:{
-                [Object.keys(res.data[0][[index1]]['lenderInfo'])[t]]:{
+                [Object.keys(res.data[0][index1]['lenderInfo'])[t]]:{
                   isread: 0
               }
             }

@@ -7,6 +7,7 @@ Page({
     bookname:'',
     author:'',
     description:'',
+    date:''
   },
    getBookname:function(e){//输入时获取内容书名
     this.setData({
@@ -76,7 +77,8 @@ Page({
               [bookname]:{
                 author:this.data.author,
                 picid:_picid,
-                description:this.data.description
+                description:this.data.description,
+                date:Math.round(new Date().getTime()/1000)
               }
             }
           })
@@ -149,6 +151,11 @@ Page({
   getDescription:function(e){
     this.setData({
       description: e.detail.value
+    })
+  },
+  getDate:function(e){
+    this.setData({
+      date: e.detail.value
     })
   },
   /**

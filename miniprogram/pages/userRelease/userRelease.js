@@ -24,13 +24,18 @@ Page({
     }).get({
       success: function(res) {
         console.log(res.data[0]);      
-        for(var i=3;i<Object.keys(res.data[0]).length;i++){//遍历当前用户发布的所有书
+        for(var i=2;i<Object.keys(res.data[0]).length;i++){//遍历当前用户发布的所有书
           var bookName=Object.keys(res.data[0])[i];
+          if(bookName=='nickname'){
+            continue;
+          }
+          var tempDate=new Date(res.data[0][bookName].date* 1000).toLocaleString()
           var _={
             _bookName:Object.keys(res.data[0])[i],
             _author:res.data[0][bookName].author,
             _description:res.data[0][bookName].description,
             _picid:res.data[0][bookName].picid,
+            _date:tempDate
           }
           // console.log("书名：",bookName,"作者：",_._author,"描述：",_._description,"图片id：",_._picid);
           arr.push(_);

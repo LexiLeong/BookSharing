@@ -7,18 +7,27 @@
 #pic_upload{
   height: 80px;
   width: 80px;
-
+  margin-left: 10px;
 }
 #descripiton{
   height:200rpx;
   background-color: white;
   position: relative;
   margin-top: 8px;
+  width: 95%;
+  border-radius: 5px;
 }
 .unit{
-  padding-top: 12px;
+  padding: 12px 10px;
+  font-size: large;
+}
+.unit text{
+  margin-left: 10px;
 }
 #bookname,#author{
   background-color: white;
   height: 30px;
+  margin-top: 10px;
+  width: 95%;
+  border-radius: 5px;
 }

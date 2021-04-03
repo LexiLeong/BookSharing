@@ -2,10 +2,12 @@
 #head{
   align-items: center;
   background-color:white;
-  height: 100px;
+  height: 120px;
+  margin-top: 20px;
 }
 #user_icon{
   margin: 0 auto;  
+  margin-top: 15px;
   display: flex;
   justify-content: center;
   overflow: hidden;
@@ -17,17 +19,21 @@
   display: flex;
   justify-content: center;
   font-size: smaller;
+  margin-top: 3px;
 }
 #UserChoice{
   font-size: 14px;
   margin-top: 20px;
+  justify-content: center;
 }
 #but{
   margin-top:10px;
 }
 .option{
-  padding-top: 10px;
+  padding-top: 15px;
+  padding-bottom: 10px;
   font-size: 15px;
   background-color: white;
   height: 30px;
+  text-align: center;
 }

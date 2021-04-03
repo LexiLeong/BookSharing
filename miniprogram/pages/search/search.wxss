@@ -1,6 +1,5 @@
 /* pages/search/search.wxss */
 
-/* pages/home/home.wxss */
 .search-bar {
   z-index: 1;
   height: 30px;

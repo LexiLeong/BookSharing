@@ -8,7 +8,15 @@ Page({
    */
   data: {
     bookList:[],
-    inputMsg:'没'
+    inputMsg:'',
+    hiddenModal:true,
+    wxid:'',
+    msg:'',
+    bookName:'',
+    author:'',
+    description:'',
+    picid:'',
+    id:'' ,  
   },
 
   /**
@@ -112,6 +120,17 @@ Page({
         }
       }
     })
+    this.data.bookName=e.currentTarget.dataset.item._bookName;
+    this.data.author=e.currentTarget.dataset.item._author;
+    this.data.description=e.currentTarget.dataset.item._description ;
+    this.data.picid=e.currentTarget.dataset.item._picid;
+    this.data.id=e.currentTarget.dataset.item._id;
+    this.setData({
+      hiddenModal:false
+    })
+    console.log(this.data.wxid);
+    
+    /*
     wx.navigateTo({
       url: '/pages/borrower/borrower',
       events: {
@@ -130,6 +149,63 @@ Page({
           id:e.currentTarget.dataset.item._id        
          })
       }
+    })*/
+  },
+  loadLend_db(){
+    const db=wx.cloud.database();
+    db.collection('lendInfo').where({_openid:db.command.eq(this.data.id)}).update({
+      data:{
+        [this.data.bookName]:{
+          lendnum:db.command.inc(1),//该书目的借阅数+1
+          lenderInfo:{
+            [getApp().globalData.openid]:{
+              nickname:getApp().globalData.nickname,
+              msg:this.data.msg,//申请借阅人ID：留言
+              wxid:this.data.wxid,
+              isread:-1//这个消息被借人读取否；否为-1，是为1
+            }
+       },
+     }}})
+     wx.showModal({
+      title: "已发送结束申请",
+      content: "请耐心等待书主回复哦~",
+      showCancel: false,
+      confirmText: "确定",
+      confirmColor: "#0f0",
+      success: function (res) {
+        if (res.confirm) {
+          wx.navigateBack({
+            delta: 1,
+          })
+        }
+      }
+    })
+  },
+  confirmM:function() {
+    this.setData({
+        hiddenModal: true
+    })
+    this.loadLend_db();
+     
+  },
+  
+  cancelM:function() {
+    this.setData({
+        hiddenModal: true
+    })
+    
+  },
+  
+  
+  
+  wxid: function (e) {
+    this.setData({
+       wxid:e.detail.value
+    })
+  },
+  msg: function (e) {
+    this.setData({
+       msg: e.detail.value
     })
   },
   /**

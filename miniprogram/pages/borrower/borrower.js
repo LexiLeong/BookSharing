@@ -51,19 +51,20 @@ inptmsg:function(e){//获取留言
       return ;
     }
     console.log('outbreak');
+    console.log(this.data.borrowMsg);
     const db=wx.cloud.database();
     //要更改为借书对象的id
     //要更改对应书目索引的列表
     var msg="i want to borrow"//借家留下的信息
       //被借人的id
-    getApp().globalData.currbook=this.data.borrowMsg['bookname'];
-    var bookname=this.data.borrowMsg['bookname'];
-    console.log(this.data.borrowMsg);
-    console.log(this.data.borrowMsg['bookName']);
+   // getApp().globalData.currbook=this.data.borrowMsg['bookname'];
+   // var bookname=this.data.borrowMsg['bookname'];
    //更改该本人的待处理借书信息
+   console.log(this.data.borrowMsg['bookName']);
+   var t=this.data.borrowMsg['bookName'];
     db.collection('lendInfo').where({_openid:db.command.eq(this.data.borrowMsg['id'])}).update({
       data:{
-        [this.data.borrowMsg['bookName']]:{
+        [t]:{
           lendnum:db.command.inc(1),//该书目的借阅数+1
           lenderInfo:{
             [getApp().globalData.openid]:{

@@ -22,3 +22,7 @@
       </view>
     </view>
 </view>
+<modal hidden="{{hiddenModal}}" title="你给书主同学得信息" confirm-text="确认" cancel-text="取消" bindcancel="cancelM" bindconfirm="confirmM">
+      <input bindinput='msg' type='text' placeholder="请输入你的微信号..." auto-focus/>
+      <input bindinput='wxid' type='text' placeholder="请输入你的留言..." auto-focus/>
+</modal>

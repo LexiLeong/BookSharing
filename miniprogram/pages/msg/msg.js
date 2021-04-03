@@ -1,6 +1,10 @@
 // pages/msg/msg.js
 Page({
-
+  data:{
+    hiddenmodalput:true,
+    returnTime:"",
+    wxid:'',
+  },
   onLoad: function (options) {
     this.getData();
   },
@@ -14,6 +18,7 @@ Page({
       success: function(res) {
         for(var i=2 ;i<Object.keys(res.data[0]).length;i++)
         {
+          console.log('loop');
           var index1=Object.keys(res.data[0])[i];
           //判断书是否是借出的书籍,是则不展示
           if(res.data[0][index1]['lendnum']==-1)
@@ -69,6 +74,9 @@ Page({
     
   },
   lendConfirm(e){
+    this.setData({
+      hiddenmodalput:false
+    })
     var bookname=e.currentTarget.dataset.item['bookname'];
     var lendid=e.currentTarget.dataset.item['id'];
     var lender=e.currentTarget.dataset.item['nickname'];
@@ -89,7 +97,7 @@ Page({
 })
 console.log(bookname);
 //给借书人的数据库进行加载
-var index=bookname+'#'+getApp().globalData.openid;
+var index=bookname;
 db.collection('borrowInfo').where({_openid:db.command.eq(lendid)}).update({
   data:{
      [index]:{
@@ -114,7 +122,7 @@ db.collection('borrowInfo').where({_openid:db.command.eq(lendid)}).update({
     }
   })
   //将出借书目的其他等待者清空
- for(key in waitingst){
+ for(var key in waitingst){
    if(key==lendid){continue ;}
   db.collection('lendInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).update({
     data:{
@@ -127,6 +135,25 @@ db.collection('borrowInfo').where({_openid:db.command.eq(lendid)}).update({
   })
 }
 },
+
+
+confirmM: function (e) {
+  this.setData({
+    hiddenmodalput:true,
+  })
+},
+
+wxid: function (e) {
+  this.setData({
+     name:e.detail.value
+  })
+},
+returnTime: function (e) {
+  this.setData({
+     wxid: e.detail.value
+  })
+},
+
   onReady: function () {
     
   },

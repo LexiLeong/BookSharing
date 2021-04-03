@@ -19,6 +19,7 @@ App({
     }
     this.getNickname();
     this.getOpenid();
+    this.addBorrow_db();
    // this.watch_db();
     
   } ,
@@ -36,6 +37,7 @@ App({
    
   },
   getOpenid() {
+    return new Promise((resolve, reject)=>{ 
      let that = this;
     wx.cloud.callFunction({
      name: 'getOpenid',
@@ -44,5 +46,25 @@ App({
       this.globalData.openid = res.result.openId;
      }
 })
-}
+
+setTimeout(()=>{resolve(this.globalData.openid)},1000) 
+}) 
+},
+async addBorrow_db(){
+  var a= await this.getOpenid();
+   const db=wx.cloud.database();
+   console.log(this.globalData.openid);
+   db.collection('borrowInfo').where({_openid:db.command.eq(this.globalData.openid)}).get({
+    success: res => {
+      if(res.data.length==0){
+      //发布信息数据库的更新
+      db.collection('borrowInfo').add({
+        data:{
+          
+        }
+      })
+    }
+  }
+})
+ }
 })

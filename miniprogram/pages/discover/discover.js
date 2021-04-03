@@ -68,6 +68,7 @@ Page({
              }
            })
         }
+        
         var bookname=this.data.bookname;
         getApp().globalData.currbook=this.data.bookname;//更改当前操作的书名
         //当前用户非初次发布

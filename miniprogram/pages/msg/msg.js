@@ -93,27 +93,20 @@ Page({
     var bookname=e.currentTarget.dataset.item['bookname'];
     var lendid=e.currentTarget.dataset.item['id'];
     var lender=e.currentTarget.dataset.item['nickname'];
+    
     const db=wx.cloud.database();
     var waitingst;
     //当用户初次借书
-    db.collection('borrowInfo').where({_openid:db.command.eq(lendid)}).get({
-    success: res => {
-      if(res.data.length==0){
-      //发布信息数据库的更新
-      db.collection('borrowInfo').add({
-        data:{
-          
-        }
-      })
-    }
-  }
-})
-console.log(bookname);
+    console.log(lendid);
+   
 //给借书人的数据库进行加载
-var index=bookname;
+console.log(bookname);
+console.log(lender);
+console.log(this.data.wxid);
+console.log(this.data.returnTime);
 db.collection('borrowInfo').where({_openid:db.command.eq(lendid)}).update({
   data:{
-     [index]:{
+     [bookname]:{
        owner:lender,
        ownerId:getApp().globalData.openid,
        wxid:this.data.wxid,
@@ -124,7 +117,7 @@ db.collection('borrowInfo').where({_openid:db.command.eq(lendid)}).update({
   //设置书为已借
   db.collection('lendInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).get({
     success: function(res) {
-      watinglst=Object.keys(res.data[0][[bookname]]['lenderInfo']);
+      watinglst=Object.keys(res.data[0][bookname]['lenderInfo']);
     }
   })
   db.collection('lendInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).update({

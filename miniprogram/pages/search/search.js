@@ -128,28 +128,9 @@ Page({
     this.setData({
       hiddenModal:false
     })
-    console.log(this.data.wxid);
     
-    /*
-    wx.navigateTo({
-      url: '/pages/borrower/borrower',
-      events: {
-        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-        acceptDataFromOpenedPage: function(bookMsg) {
-          // console.log("in home",inputMsg)
-        }
-      },
-      success: function(res) {
-        // 通过eventChannel向被打开页面传送数据
-        res.eventChannel.emit('acceptDataFromOpenerPage', 
-        { bookName:e.currentTarget.dataset.item._bookName,
-          author:e.currentTarget.dataset.item._author,
-          description: e.currentTarget.dataset.item._description ,
-          picid:e.currentTarget.dataset.item._picid,
-          id:e.currentTarget.dataset.item._id        
-         })
-      }
-    })*/
+   
+  
   },
   loadLend_db(){
     const db=wx.cloud.database();
@@ -166,6 +147,7 @@ Page({
             }
        },
      }}})
+     
      wx.showModal({
       title: "已发送结束申请",
       content: "请耐心等待书主回复哦~",
@@ -185,6 +167,20 @@ Page({
     this.setData({
         hiddenModal: true
     })
+    if(this.data.wxid==''){
+        wx.showModal({
+          title: "请填写微信号哦",
+          content: "微信号不能为空",
+          showCancel: false,
+          confirmText: "确定",
+          confirmColor: "#0f0",
+          success: function (res) {
+            if (res.confirm) {
+            }
+          }
+        })
+        return ;
+    }
     this.loadLend_db();
      
   },

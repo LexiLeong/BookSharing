@@ -43,13 +43,14 @@
 
 .book-list{
   display: flex;
-  height:170px;
+  height:140px;
   width: 93.3%;
   flex-direction: row;
   align-items: flex-start;
   justify-content:flex-start;
   box-sizing: border-box;
-  margin-top: 20rpx;
+  margin-top: 10px;
+  padding-top: 10px;
   background-color: #fff;
 }
 

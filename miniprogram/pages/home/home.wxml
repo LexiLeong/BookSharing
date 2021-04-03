@@ -22,7 +22,7 @@
             <view>描述：{{item._description}}</view>
             <view>发布：{{item._date}}</view>
             <view id="getId">用户id【隐藏】:{{item._id}}</view>
-            <button class="borrow-book" catchtap="borrowBook" type="primary" size="mini">借书</button>
+            <!-- <button class="borrow-book" catchtap="borrowBook" type="primary" size="mini">借书</button> -->
           </view>
         </view>
       </view>

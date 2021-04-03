@@ -43,6 +43,7 @@
 
 .book-list{
   display: flex;
+  height:170px;
   width: 93.3%;
   flex-direction: row;
   align-items: flex-start;

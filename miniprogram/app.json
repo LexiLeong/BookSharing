@@ -8,8 +8,7 @@
     "pages/borrower/borrower",
     "pages/userRelease/userRelease",
     "pages/lendConfirm/lendConfirm",
-    "pages/showBorrow/showBorrow",
-     "pages/bookmsg/bookmsg"
+    "pages/showBorrow/showBorrow"
   ],
   "tabBar": {
     "list": [

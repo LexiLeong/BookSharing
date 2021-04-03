@@ -15,7 +15,6 @@ Page({
     var that=this;
     var db=wx.cloud.database();
     var arr=[];
-    console.log('engr');
     db.collection('lendInfo').where({
       _openid:db.command.eq(getApp().globalData.openid)
     }).get({
@@ -26,8 +25,6 @@ Page({
           if(index1=='_id' || index1=='_openid'){
             continue ;
           }
-          console.log(res.data[0]);
-          console.log(res.data[0][index1]['lendnum']);
           //判断书是否是借出的书籍,是则不展示
           if(res.data[0][index1]['lendnum']==-1)
           {
@@ -35,7 +32,6 @@ Page({
           }
           var _bkname=index1;
           var index2='lenderInfo';
-          console.log(res.data[0][index1]['lenderInfo']);
           if(typeof res.data[0][index1]['lenderInfo']=='undefined'){
             continue ;
           }
@@ -96,14 +92,19 @@ Page({
     
     const db=wx.cloud.database();
     var waitingst;
-    //当用户初次借书
-    console.log(lendid);
-   
-//给借书人的数据库进行加载
-console.log(bookname);
-console.log(lender);
-console.log(this.data.wxid);
-console.log(this.data.returnTime);
+    wx.showModal({
+      title: "请稍后！",
+      content: "正在通过借书",
+      showCancel: false,
+      confirmText: "确定",
+      confirmColor: "#0f0",
+      success: function (res) {
+        if (res.confirm) {
+          
+        }
+      }
+    })
+
 db.collection('borrowInfo').where({_openid:db.command.eq(lendid)}).update({
   data:{
      [bookname]:{
@@ -140,6 +141,20 @@ db.collection('borrowInfo').where({_openid:db.command.eq(lendid)}).update({
     }
   })
 }
+wx.showModal({
+  title: "出借完成",
+  content: "已将你的书借给对方，记得及时联系哦~",
+  showCancel: false,
+  confirmText: "确定",
+  confirmColor: "#0f0",
+  success: function (res) {
+    if (res.confirm) {
+      wx.navigateBack({
+        delta: 1,
+      })
+    }
+  }
+})
 },
 confirmM:function() {
   this.setData({

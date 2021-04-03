@@ -31,7 +31,7 @@ Page({
               continue;
             }
             var tempDate=new Date(res.data[i][bookName].date* 1000).toLocaleString()
-            console.log("tempDate=",tempDate)
+            //console.log("tempDate=",tempDate)
             var _={
               _bookName:Object.keys(res.data[i])[j],
               _author:res.data[i][bookName].author,
@@ -41,7 +41,7 @@ Page({
               _date:tempDate
             }
             arr.push(_);
-            console.log("书名：",_._bookName,"作者：",_._author,"描述：",_._description,"图片id：",_._picid,"发布时间：",_._date);
+            //console.log("书名：",_._bookName,"作者：",_._author,"描述：",_._description,"图片id：",_._picid,"发布时间：",_._date);
             var a=arr;
             wx.getSystemInfo({
               success: function (res) {

@@ -92,19 +92,7 @@ Page({
     
     const db=wx.cloud.database();
     var waitingst;
-    wx.showModal({
-      title: "请稍后！",
-      content: "正在通过借书",
-      showCancel: false,
-      confirmText: "确定",
-      confirmColor: "#0f0",
-      success: function (res) {
-        if (res.confirm) {
-          
-        }
-      }
-    })
-
+  
 db.collection('borrowInfo').where({_openid:db.command.eq(lendid)}).update({
   data:{
      [bookname]:{

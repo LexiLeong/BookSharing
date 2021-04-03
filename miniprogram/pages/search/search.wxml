@@ -1,8 +1,15 @@
 <!--pages/search/search.wxml-->
+
+<!-- 搜索框 -->
+<view class="search-bar">
+  <input placeholder="请输入书名" bindchange="inputSearchBook"/>
+  <button type="primary" bindtap="searchBook" size="mini">查詢</button>
+</view>
+
 <!-- 查询图书展示 -->
 <view class="book-content">
   <view wx:for="{{bookList}}" wx:key="index">
-      <view class="book-list">
+      <view class="book-list" bindtap="seeBookDetail" data-item="{{item}}">
         <!-- 图书图片 -->
         <view class="book-image">
           <image src="{{item._picid}}" mode="aspectFit"></image>

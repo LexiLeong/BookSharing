@@ -26,6 +26,9 @@ Page({
         for(var i=0;i<Object.keys(res.data).length;i++){//总共有多少个用户
           for(var j=2;j<Object.keys(res.data[i]).length;j++){//每个用户发布了多少书
             var bookName=Object.keys(res.data[i])[j];
+            if(bookName=='nickname'){
+              continue;
+            }
             var tempDate=new Date(res.data[i][bookName].date* 1000).toLocaleString()
             console.log("tempDate=",tempDate)
             var _={

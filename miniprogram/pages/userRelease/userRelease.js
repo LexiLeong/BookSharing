@@ -26,6 +26,9 @@ Page({
         console.log(res.data[0]);      
         for(var i=2;i<Object.keys(res.data[0]).length;i++){//遍历当前用户发布的所有书
           var bookName=Object.keys(res.data[0])[i];
+          if(bookName=='nickname'){
+            continue;
+          }
           var tempDate=new Date(res.data[0][bookName].date* 1000).toLocaleString()
           var _={
             _bookName:Object.keys(res.data[0])[i],

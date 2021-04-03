@@ -1,4 +1,4 @@
-// pages/search/search.js
+// pages/bookmsg/bookmsg.js
 const db=wx.cloud.database()
 
 Page({
@@ -8,9 +8,40 @@ Page({
    */
   data: {
     bookList:[],
-    inputMsg:'没'
+    inputMsg:'没',
+    evaluate_contant: ['评价:'],
+    stars: [0, 1, 2, 3, 4],
+    normalSrc: './star_default.png',
+    selectedSrc: './star_full.png',
+    halfSrc: './star_half.png',
+    score: 0,
+    scores: [0],
   },
-
+// 提交事件
+submit_evaluate: function () {
+  console.log('评价得分' + this.data.scores)
+},
+//点击左边,半颗星
+selectLeft: function (e) {
+  var score = e.currentTarget.dataset.score
+  if (this.data.score == 0.5 && e.currentTarget.dataset.score == 0.5) {
+    score = 0;
+  }
+  this.data.scores[e.currentTarget.dataset.idx] = score,
+    this.setData({
+      scores: this.data.scores,
+      score: score
+    })
+},
+//点击右边,整颗星
+selectRight: function (e) {
+  var score = e.currentTarget.dataset.score
+  this.data.scores[e.currentTarget.dataset.idx] = score,
+    this.setData({
+      scores: this.data.scores,
+      score: score
+    })
+},
   /**
    * 生命周期函数--监听页面加载
    */
@@ -30,8 +61,7 @@ Page({
            _author:inputMsg['author'],
            _description:inputMsg['description'],
            _picid:inputMsg['picid'],
-           _id:inputMsg['id'],
-           _date:inputMsg['date']
+           _id:inputMsg['id']
          }
          arr.push(_);
          wx.getSystemInfo({
@@ -50,18 +80,16 @@ Page({
          .get({
            success(res) { // res.data 是一个包含集合中有权限访问的所有记录的数据，不超过 20 条
              for(var i=0;i<Object.keys(res.data).length;i++){//总共有多少个用户
-               for(var j=2;j<Object.keys(res.data[i]).length;j++){//每个用户发布了多少书
+               for(var j=3;j<Object.keys(res.data[i]).length;j++){//每个用户发布了多少书
                  var bookName=Object.keys(res.data[i])[j];
                  //console.log("bookName=",bookName,"\ninputMsg=",inputMsg)
                  if(bookName==inputMsg){
-                   var tempDate=new Date(res.data[i][bookName].date* 1000).toLocaleString()
                    var _={
                      _bookName:Object.keys(res.data[i])[j],
                      _author:res.data[i][bookName].author,
                      _description:res.data[i][bookName].description,
                      _picid:res.data[i][bookName].picid,
-                     _id:inputMsg['id'],
-                     _date:tempDate
+                     _id:inputMsg['id']
                    }
                    arr.push(_);
                    that.setData({

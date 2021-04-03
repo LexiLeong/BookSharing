@@ -15,14 +15,20 @@ Page({
     var that=this;
     var db=wx.cloud.database();
     var arr=[];
+    console.log('engr');
     db.collection('lendInfo').where({
       _openid:db.command.eq(getApp().globalData.openid)
     }).get({
       success: function(res) {
-        for(var i=2 ;i<Object.keys(res.data[0]).length;i++)
+       
+        for(var i=0 ;i<Object.keys(res.data[0]).length;i++)
         {
-          console.log('loop');
           var index1=Object.keys(res.data[0])[i];
+          if(index1=='_id' || index1=='_openid'){
+            continue ;
+          }
+          console.log(res.data[0]);
+          console.log(res.data[0][index1]['lendnum']);
           //判断书是否是借出的书籍,是则不展示
           if(res.data[0][index1]['lendnum']==-1)
           {

@@ -44,6 +44,5 @@ App({
       this.globalData.openid = res.result.openId;
      }
 })
-  
 }
 })

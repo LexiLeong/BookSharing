@@ -155,12 +155,12 @@ cancelM:function() {
 
 wxid: function (e) {
   this.setData({
-     returnTime:e.detail.value
+     wxid:e.detail.value
   })
 },
 returnTime: function (e) {
   this.setData({
-     wxid: e.detail.value
+     returnTime: e.detail.value
   })
 },
 

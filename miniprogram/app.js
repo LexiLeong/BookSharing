@@ -25,7 +25,7 @@ App({
   //获取当前用户的openid
   getNickname()
   {
-    console.log('trying to get nickname');
+    ///console.log('trying to get nickname');
     wx.getUserInfo({
       desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: (res) => {

@@ -7,8 +7,9 @@
     "pages/msg/msg",
     "pages/borrower/borrower",
     "pages/userRelease/userRelease",
-    "pages/lendConfirm/lendConfirm",
-    "pages/showBorrow/showBorrow"
+    "pages/showBorrow/showBorrow",
+    "pages/showLend/showLend",
+    "pages/lendConfirm/lendConfirm"
   ],
   "tabBar": {
     "list": [

@@ -94,10 +94,26 @@ Page({
            })
         }
   })
-  wx.showToast({
-    title:"发布成功",
-    icon:"success"
-    })
+  var curr=this;
+  wx.showModal({
+    title: "已发布",
+    content: "你的图书已发布到首页，快去看看吧",
+    showCancel: false,
+    confirmText: "确定",
+    confirmColor: "#0f0",
+    success: function (res) {
+      if (res.confirm) {
+        curr.setData({
+          img_id:'',
+          imgURL:"./1.jpg",
+          flag_pic:0,
+          bookname:'',
+          author:'',
+          description:'',
+       })
+      }
+    }
+  })
   this.data.path_img='';
 }
 },
@@ -162,6 +178,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.data.bookname='';
+    this.data.author='';
+    this.data.description='';
+    this.data.imgURL="./1.jpg";
+    this.data.flag_pic=0;
+    this.data.img_id='';
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

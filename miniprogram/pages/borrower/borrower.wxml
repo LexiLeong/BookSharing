@@ -2,9 +2,7 @@
 <view>
   
   <view class="title">填写信息\n</view>
-  <view>姓名：<input type="text" class="inp" value="{{name}}" name="name" bindinput="inptname"/></view>
-  <view>手机号码：<input type="number" class="inp" value="{{tle}}" name="tle" bindinput="inpttle"/></view>
-  <view>地址：<input type="text" class="inp"  value="{{address}}" name="address" bindinput="inptadr"/></view>
-  <view>留言:<input type="text" class="inp"/></view>
-  <button class="but" type="primary" bindtap="certain">确定</button>
+  <view>微信号：<input type="number" class="inp" value="{{tle}}" name="tle" bindinput="inpttle"/></view>
+  <view>留言:<input type="text" class="inp" value="{{msg}}" name="msg" bindinput="inptmsg"/></view>
+  <button class="but" type="primary" bindtap="borrowConfirm">确定</button>
 </view>

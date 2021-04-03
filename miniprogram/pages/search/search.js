@@ -23,7 +23,6 @@ Page({
      // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据
      var temp;
      eventChannel.on('acceptDataFromOpenerPage', function(inputMsg) {
-       console.log(inputMsg);
        if(typeof(inputMsg)=='object'){
          var _={
            _bookName:inputMsg['bookName'],
@@ -42,8 +41,6 @@ Page({
              })
            }
          })
-         console.log("点击view bookList:",that.data.bookList)
-         console.log("点击view inputMsg:",that.data.inputMsg)
        }
        else if(typeof(inputMsg)=='string'){
          db.collection('releaseInfo').where({})
@@ -63,7 +60,7 @@ Page({
                      _author:res.data[i][bookName].author,
                      _description:res.data[i][bookName].description,
                      _picid:res.data[i][bookName].picid,
-                     _id:inputMsg['id'],
+                     _id:res.data[i]['_openid'],
                      _date:tempDate
                    }
                    arr.push(_);
@@ -71,8 +68,6 @@ Page({
                      bookList: arr,
                      inputMsg:_
                    })
-                   console.log("查询 bookList:",that.data.bookList)
-                   console.log("查询 inputMsg:",that.data.inputMsg)
                  }
                }
              }
@@ -85,27 +80,16 @@ Page({
      })
        
   },
-  borrowBook()
+  borrowBook(e)
   {
-    wx.navigateTo({
-      url:'../borrower/borrower'
-    })
-
-  },
-  loadLend_db:function(e){
-    const db=wx.cloud.database();
-    //要更改为借书对象的id
-    //要更改对应书目索引的列表
-    var msg="i want to borrow"//借家留下的信息
-      //被借人的id
-    getApp().globalData.currbook=this.data.inputMsg['bookname'];
-    var bookname=this.data.inputMsg['bookname'];
-    console.log(this.data.inputMsg['_id']);
+     //页面跳转前检查这本书是否已被借
+    console.log(this.data.inputMsg);
+    var bookname=this.data.inputMsg._bookName;
     db.collection('lendInfo').where({_openid:db.command.eq(this.data.inputMsg['_id'])}).get({
       success: function (res) {
-        console.log(res.data[0]);
-        console.log(res.data[0][bookname]['lendnum']);
+        //console.log(res.data[0]);
         var islend=res.data[0][bookname]['lendnum'];
+        console.log(islend);
         //若书已被借出，则无法出借
         if(islend==-1)
         {
@@ -118,7 +102,9 @@ Page({
             confirmColor: 'skyblue',//确定文字的颜色
             success: function (res) {
               if (res.confirm) {
-                 //点击取消,默认隐藏弹框
+                  wx.navigateBack({
+                    delta: 1,
+                  })
               } 
               }
           })
@@ -126,19 +112,26 @@ Page({
         }
       }
     })
-    db.collection('lendInfo').where({_openid:db.command.eq(this.data.inputMsg['_id'])}).update({
-      data:{
-        [this.data.inputMsg['bookName']]:{
-          lendnum:db.command.inc(1),//该书目的借阅数+1
-          lenderInfo:{
-            [getApp().globalData.openid]:{
-              nickname:getApp().globalData.nickname,
-              msg:'尝试',//申请借阅人ID：留言
-              isread:-1//这个消息被借人读取否；否为-1，是为1
-            }
-       },
-     }}})
-},
+    wx.navigateTo({
+      url: '/pages/borrower/borrower',
+      events: {
+        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+        acceptDataFromOpenedPage: function(bookMsg) {
+          // console.log("in home",inputMsg)
+        }
+      },
+      success: function(res) {
+        // 通过eventChannel向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', 
+        { bookName:e.currentTarget.dataset.item._bookName,
+          author:e.currentTarget.dataset.item._author,
+          description: e.currentTarget.dataset.item._description ,
+          picid:e.currentTarget.dataset.item._picid,
+          id:e.currentTarget.dataset.item._id        
+         })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

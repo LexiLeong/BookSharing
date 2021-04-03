@@ -4,7 +4,7 @@ Page({
     tip:''
   },
 
-  show_lend(){
+  show_release(){
     // var that = this;
     // var myID = getApp().globalData.openid;//that.data.inputSearchBook;
     var that=this;
@@ -34,6 +34,12 @@ Page({
   show_msg(){
     wx.navigateTo({
       url: "/pages/msg/msg"
+    })
+  },
+  show_lend()
+  {
+    wx.navigateTo({
+      url: '/pages/showLend/showLend',
     })
   },
   show_borrow()

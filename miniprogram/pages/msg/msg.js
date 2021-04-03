@@ -15,6 +15,11 @@ Page({
         for(var i=2 ;i<Object.keys(res.data[0]).length;i++)
         {
           var index1=Object.keys(res.data[0])[i];
+          //判断书是否是借出的书籍,是则不展示
+          if(res.data[0][index1]['lendnum']==-1)
+          {
+            continue ;
+          }
           var _bkname=index1;
           var index2='lenderInfo';
           for(var t=Object.keys(res.data[0][[index1]]['lenderInfo']).length-1;t>-1;t--)
@@ -30,6 +35,7 @@ Page({
             var _={ bookname:_bkname,
                     nickname:Object.values(res.data[0][[index1]]['lenderInfo'])[0]['nickname'],
                     msg:Object.values(res.data[0][[index1]]['lenderInfo'])[0]['msg'],
+                    wxid:Object.values(res.data[0][[index1]]['lenderInfo'])[0]['wxid'],
                     color:color,
                     id:id
                   }
@@ -43,6 +49,7 @@ Page({
                 })
           }})
           //被借人id
+          //设置信息为已读，变色
           db.collection('lendInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).update({
             data:{
             [index1]:{
@@ -66,6 +73,7 @@ Page({
     var lendid=e.currentTarget.dataset.item['id'];
     var lender=e.currentTarget.dataset.item['nickname'];
     const db=wx.cloud.database();
+    var waitingst;
     //当用户初次借书
     db.collection('borrowInfo').where({_openid:db.command.eq(lendid)}).get({
     success: res => {
@@ -80,17 +88,24 @@ Page({
   }
 })
 console.log(bookname);
+//给借书人的数据库进行加载
+var index=bookname+'#'+getApp().globalData.openid;
 db.collection('borrowInfo').where({_openid:db.command.eq(lendid)}).update({
   data:{
-     [bookname]:{
+     [index]:{
        owner:lender,
        ownerId:getApp().globalData.openid,
        wxid:'test',
        returntime:'2022',
        isreturn:-1,//-1则未归还，0则归还
-      
      }
   }})
+  //设置书为已借
+  db.collection('lendInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).get({
+    success: function(res) {
+      watinglst=Object.keys(res.data[0][[bookname]]['lenderInfo']);
+    }
+  })
   db.collection('lendInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).update({
     data:{
       [bookname]:{
@@ -98,8 +113,22 @@ db.collection('borrowInfo').where({_openid:db.command.eq(lendid)}).update({
       }
     }
   })
+  //将出借书目的其他等待者清空
+ for(key in waitingst){
+   if(key==lendid){continue ;}
+  db.collection('lendInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).update({
+    data:{
+      [bookname]:{
+        lenderInfo:{
+          [key]:db.command.remove()
+        }
+      }
+    }
+  })
+}
 },
   onReady: function () {
+    
   },
   
   /**

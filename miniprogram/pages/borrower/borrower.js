@@ -6,106 +6,89 @@ Page({
    */
   data: {
     name:"",
-    tle:"",
-    address:"",
+    wxid:'',
+    borrowMsg:'',
+    msg:''
   },
-inptname:function(e){//获取input里的姓名
+inptmsg:function(e){//获取留言
     this.setData({
-      name: e.detail.value
+      msg: e.detail.value
     })
   },
-  inpttle:function(e){//获取input里的电话号码
+  inpttle:function(e){//获取input里的微信号
     this.setData({
-      tle: e.detail.value
+      wxid: e.detail.value
     })
   },
-  inptadr:function(e){//获取input里的地址
-    this.setData({
-      address: e.detail.value
-    })
-  },
-certain:function()
-{
-  let name = this.data.name;
-  let tle = this.data.tle;
-  let address = this.data.address;
-  if(name=='')
-  {
-    wx.showToast({
-      title: '姓名不能为空',
-      icon: "none"
-    })
-    return false
-  }
-  else if(tle=='')
-  {
-    wx.showToast({
-      title: '手机号码不能为空',
-      icon: "none"
-    })
-    return false
-  }
-  else if(address=='')
-  {
-    wx.showToast({
-      title: '地址不能为空',
-      icon: "none"
-    })
-    return false
-  }
-  else{
-    let that=this;
-  wx.showModal({
-    title:"提示",
-    content:"是否确定借这本书?",
-    success:function(res)
-    {
-      if(res.confirm){
-          wx.showLoading({
-          title:"借书中",
-          })
-          setTimeout(function () {
-            that.borrowbooks()
-            }, 1000)   
-      }
-      else{
-        console.log("用户点击取消")
-      }
-    }
-  })
-  }
-  
-},
-borrowbooks:function()
-{
-  var bookname="围城" //书名
-  //console.log(getApp().getOpenid())
-  var openid=getApp().globalData.openid
-  //console.log(openid)
-  //数据库添加借书信息
-  const db=wx.cloud.database();
-  db.collection('lendInfo').where({_openid:db.command.eq(openid)})
-    .update({
-      data:{
-        [bookname]:{
-          lendnum:db.command.inc(1),
-       },
-        }
-    })
-  console.log("借书成功")
-  wx.hideLoading()
-  wx.showToast({
-  title:"成功",
-  icon:"success"
-  })
-},
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const eventChannel = this.getOpenerEventChannel();
+    eventChannel.emit('acceptDataFromOpenedPage', this.data.inputMsg);
+    var temp;
+     // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据
+     eventChannel.on('acceptDataFromOpenerPage', function(borrowMsg) {
+      temp=borrowMsg;
+     })
+     this.data.borrowMsg=temp;
   },
-
+  borrowConfirm:function(e){
+    if(this.data.wxid==''){
+      wx.showModal({
+        title: "请填写微信号哦",
+        content: "微信号不能为空",
+        showCancel: false,
+        confirmText: "确定",
+        confirmColor: "#0f0",
+        success: function (res) {
+          if (res.confirm) {
+          }
+         
+        }
+      })
+      return ;
+    }
+    console.log('outbreak');
+    const db=wx.cloud.database();
+    //要更改为借书对象的id
+    //要更改对应书目索引的列表
+    var msg="i want to borrow"//借家留下的信息
+      //被借人的id
+    getApp().globalData.currbook=this.data.borrowMsg['bookname'];
+    var bookname=this.data.borrowMsg['bookname'];
+    console.log(this.data.borrowMsg);
+    console.log(this.data.borrowMsg['bookName']);
+   //更改该本人的待处理借书信息
+    db.collection('lendInfo').where({_openid:db.command.eq(this.data.borrowMsg['id'])}).update({
+      data:{
+        [this.data.borrowMsg['bookName']]:{
+          lendnum:db.command.inc(1),//该书目的借阅数+1
+          lenderInfo:{
+            [getApp().globalData.openid]:{
+              nickname:getApp().globalData.nickname,
+              msg:this.data.msg,//申请借阅人ID：留言
+              wxid:this.data.wxid,
+              isread:-1//这个消息被借人读取否；否为-1，是为1
+            }
+       },
+     }}})
+     wx.showModal({
+      title: "已发送结束申请",
+      content: "请耐心等待书主回复哦~",
+      showCancel: false,
+      confirmText: "确定",
+      confirmColor: "#0f0",
+      success: function (res) {
+        if (res.confirm) {
+          wx.navigateBack({
+            delta: 1,
+          })
+        }
+      }
+    })
+},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

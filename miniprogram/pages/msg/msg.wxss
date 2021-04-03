@@ -45,3 +45,6 @@
 #getId{
   display: none;
 }
+#wxId{
+  display: none;
+}

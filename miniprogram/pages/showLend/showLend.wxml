@@ -1,0 +1,19 @@
+<!--pages/showLend/showLend.wxml-->
+
+<!-- 当前用户已借出的所有图书展示 -->
+<view class="book-content">
+  <view wx:for="{{bookList}}" wx:key="index">
+    <view class="book-list" bindtap="showMyLendBooks">
+        <view class="book-info">
+          <view class="book-info-style">
+            <view>书名：{{item.bookName}}</view>
+            <view>借者昵称：{{item.owner}}</view>
+            <view>借者微信号：{{item.wxid}}</view>
+            <view>归还期限：{{item.returnTime}}</view>
+            <button class="confirmReturn" bindtap="doReturn" style="display:{{item.display}}" data-item="{{item}}">确定归还</button>
+          </view>
+        </view>
+    </view>
+    <view class="line"></view>
+  </view>
+</view>

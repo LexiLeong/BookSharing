@@ -6,6 +6,7 @@
 <view style="color:{{item.color}}">书名:{{item.bookname}}\n</view>
 <view style="color:{{item.color}}">借阅人:{{item.nickname}}\n</view>
 <view style="color:{{item.color}}">借阅人留言:{{item.msg}}\n</view>
+<view id="wxId">用户微信id【隐藏】:{{item.wxid}}</view>
 <view id="getId">用户id【隐藏】:{{item.id}}</view>
 <button type="primary" class="lend_but" size="mini" bindtap="lendConfirm" data-item="{{item}}">借</button>
 </view>

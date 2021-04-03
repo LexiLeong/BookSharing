@@ -120,7 +120,7 @@ Page({
 borrowBook:function()
 {
   wx.navigateTo({
-    url:'../borrower/borrower'
+    url:'/borrower/borrower'
   })
   /*let that=this;
   wx.showModal({

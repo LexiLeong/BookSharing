@@ -19,7 +19,7 @@ App({
     }
     this.getNickname();
     this.getOpenid();
-    this.watch_db();
+   // this.watch_db();
     
   } ,
   //获取当前用户的openid
@@ -36,7 +36,6 @@ App({
    
   },
   getOpenid() {
-    return new Promise((resolve, reject)=>{
      let that = this;
     wx.cloud.callFunction({
      name: 'getOpenid',
@@ -45,46 +44,6 @@ App({
       this.globalData.openid = res.result.openId;
      }
 })
-    setTimeout(()=>{resolve(this.globalData.openid)},1500)
-})
-},
-  //监控云数据库
-  async watch_db(){
-    console.log('watch_db');
-    var a= await this.getOpenid();
-    const db=wx.cloud.database();
-   // console.log(this.globalData.openid);
-    db.collection('lendInfo').where({_openid:db.command.eq(this.globalData.openid)}).watch({
-      onChange: snapshot=> {
-        //判断是否为程序初启动时的监听
-        console.log('watching');
-        if (this.globalData.init==-1){
-          this.globalData.init=0;
-          return ;
-        }
-        console.log(snapshot.docChanges[0]);
-        var test=this.globalData.currbook+'.lenderInfo.'+this.globalData.openid;
-        console.log(test);
-        if(snapshot.dataType=='add')
-        {
-          return ;
-        }
-        if(typeof snapshot.docChanges[0].updatedFields[[test]]=='undefined')
-        {
-          return;
-        }
-          this.globalData.unreadsum++;
-          var index=this.globalData.unreadsum.toFixed(0);
-          console.log(index);
-          wx.setTabBarBadge({
-            index:2,
-            text:index
-          })
-      },
-      onError: err=> {
-        console.error('the watch closed because of error', err)
-      }
-
-  })
+  
 }
 })

@@ -1,14 +1,14 @@
 // pages/msg/msg.js
 Page({
   data:{
-    hiddenmodalput:true,
+    actionSheetHidden: true,   //作为开关控制弹窗是否从底部弹出
     returnTime:"",
     wxid:'',
+    _bookname:"",
+    _lendid:"",
+    _lender:""
   },
   onLoad: function (options) {
-    this.setData({
-      hiddenmodalput:false
-    })
     this.getData();
   },
   getData(){
@@ -83,91 +83,88 @@ Page({
   },
   lendConfirm(e){
     this.setData({
-      hiddenmodalput:false
+      actionSheetHidden: !this.data.actionSheetHidden,
+      _bookname:e.currentTarget.dataset.item['bookname'],
+      _lendid:e.currentTarget.dataset.item['id'],
+      _lender:e.currentTarget.dataset.item['nickname']
+    })   
+  },
+  wxid: function (e) {
+    this.setData({
+      wxid:e.detail.value
     })
-    console.log(this.data.wxid);
-    var bookname=e.currentTarget.dataset.item['bookname'];
-    var lendid=e.currentTarget.dataset.item['id'];
-    var lender=e.currentTarget.dataset.item['nickname'];
+  },
+  returnTime: function (e) {
+    this.setData({
+      returnTime: e.detail.value
+    })
+  },
+  listenerActionSheet:function() {
+    this.setData({
+     actionSheetHidden: !this.data.actionSheetHidden
+    })
+   },
+  // 确定按钮触发事件 //用户输完并点击确认后，输入的信息会打印到控制台上
+  confirmM:function(e) {
+    var bookname=this.data._bookname;
+    var lendid=this.data._lendid;
+    var lender=this.data._lender;
     
     const db=wx.cloud.database();
     var waitingst;
-  
-db.collection('borrowInfo').where({_openid:db.command.eq(lendid)}).update({
-  data:{
-     [bookname]:{
-       owner:lender,
-       ownerId:getApp().globalData.openid,
-       wxid:this.data.wxid,
-       returntime:this.data.returnTime,
-       isreturn:-1,//-1则未归还，0则归还
-     }
-  }})
-  //设置书为已借
-  db.collection('lendInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).get({
-    success: function(res) {
-      watinglst=Object.keys(res.data[0][bookname]['lenderInfo']);
-    }
-  })
-  db.collection('lendInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).update({
-    data:{
-      [bookname]:{
-        lendnum:-1//lendnum为-1表示已借
-      }
-    }
-  })
-  //将出借书目的其他等待者清空
- for(var key in waitingst){
-   if(key==lendid){continue ;}
-  db.collection('lendInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).update({
-    data:{
-      [bookname]:{
-        lenderInfo:{
-          [key]:db.command.remove()
+    db.collection('borrowInfo').where({_openid:db.command.eq(lendid)}).update({
+      data:{
+        [bookname]:{
+          owner:lender,
+          ownerId:getApp().globalData.openid,
+          wxid:this.data.wxid,
+          returntime:this.data.returnTime,
+          isreturn:-1,//-1则未归还，0则归还
         }
       }
-    }
-  })
-}
-wx.showModal({
-  title: "出借完成",
-  content: "已将你的书借给对方，记得及时联系哦~",
-  showCancel: false,
-  confirmText: "确定",
-  confirmColor: "#0f0",
-  success: function (res) {
-    if (res.confirm) {
-      wx.navigateBack({
-        delta: 1,
+    })
+    //设置书为已借
+    db.collection('lendInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).get({
+      success: function(res) {
+        watinglst=Object.keys(res.data[0][bookname]['lenderInfo']);
+      }
+    })
+    db.collection('lendInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).update({
+      data:{
+        [bookname]:{
+          lendnum:-1//lendnum为-1表示已借
+        }
+      }
+    })
+    //将出借书目的其他等待者清空
+    for(var key in waitingst){
+      if(key==lendid){continue ;}
+      db.collection('lendInfo').where({_openid:db.command.eq(getApp().globalData.openid)}).update({
+        data:{
+          [bookname]:{
+            lenderInfo:{
+              [key]:db.command.remove()
+            }
+          }
+        }
       })
     }
-  }
-})
-},
-confirmM:function() {
-  this.setData({
-      hiddenModal: true
-  })
-},
+    wx.showModal({
+      title: "出借完成",
+      content: "已将你的书借给对方，记得及时联系哦~",
+      showCancel: false,
+      confirmText: "确定",
+      confirmColor: "#0f0",
+      success: function (res) {
+        if (res.confirm) {
+          wx.navigateBack({
+            delta: 1,
+          })
+        }
+      }
+    }) 
 
-cancelM:function() {
-  this.setData({
-      hiddenModal: true
-  })
-},
-
-
-
-wxid: function (e) {
-  this.setData({
-     wxid:e.detail.value
-  })
-},
-returnTime: function (e) {
-  this.setData({
-     returnTime: e.detail.value
-  })
-},
+  },
 
   onReady: function () {
     
@@ -177,14 +174,14 @@ returnTime: function (e) {
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    console.log("onShow")
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    console.log("onHide")
   },
 
   /**
@@ -213,5 +210,5 @@ returnTime: function (e) {
    */
   onShareAppMessage: function () {
 
-  }
+  },
 })

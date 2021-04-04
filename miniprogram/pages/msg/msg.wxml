@@ -8,13 +8,28 @@
 <view style="color:{{item.color}}">借阅人留言:{{item.msg}}\n</view>
 <view id="wxId">用户微信id【隐藏】:{{item.wxid}}</view>
 <view id="getId">用户id【隐藏】:{{item.id}}</view>
+<!-- <button type="primary" class="lend_but" size="mini" bindtap="lendConfirm" data-item="{{item}}">借</button> -->
 <button type="primary" class="lend_but" size="mini" bindtap="lendConfirm" data-item="{{item}}">借</button>
 </view>
 </view>
 <view class="line"> </view>
 </view>
- 
-     <modal hidden="{{hiddenModal}}" title="你给借书同学得信息" confirm-text="确认" cancel-text="取消" bindcancel="cancelM" bindconfirm="confirmM">
+
+<!--默认action-sheet为隐藏，由lend button触发-->
+<action-sheet class="action_sheet" hidden="{{actionSheetHidden}}" bindchange="listenerActionSheet" >
+	<action-sheet-item >
       <input bindinput='returnTime' type='text' placeholder="请输入还书期限..." auto-focus/>
       <input bindinput='wxid' type='text' placeholder="请输入你的微信id..." auto-focus/>
-   </modal>
+	</action-sheet-item>
+	<!--自动隐藏action-sheet-->
+	<action-sheet-cancel bindtap="confirmM">确认</action-sheet-cancel>
+</action-sheet>
+
+
+
+
+
+
+
+
+
